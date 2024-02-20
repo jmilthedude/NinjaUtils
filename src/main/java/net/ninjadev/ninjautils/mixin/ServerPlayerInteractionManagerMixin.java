@@ -26,7 +26,6 @@ public class ServerPlayerInteractionManagerMixin {
        if(data.isCancelled()) {
            cir.cancel();
            cir.setReturnValue(ActionResult.FAIL);
-
        }
     }
 }

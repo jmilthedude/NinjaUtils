@@ -8,10 +8,10 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import net.ninjadev.ninjautils.feature.Feature;
-import net.ninjadev.ninjautils.feature.NameColorFeature;
-import net.ninjadev.ninjautils.feature.NetherPortalCalcFeature;
+import net.ninjadev.ninjautils.init.ModFeatures;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class FeatureAdapter extends TypeAdapter<Feature> {
 
@@ -52,23 +52,19 @@ public class FeatureAdapter extends TypeAdapter<Feature> {
         in.beginObject();
         String name = "";
         boolean enabled = false;
-        while(in.peek() == JsonToken.NAME) {
+        while (in.peek() == JsonToken.NAME) {
             String property = in.nextName();
 
-            if(property.equalsIgnoreCase("name")) {
+            if (property.equalsIgnoreCase("name")) {
                 name = in.nextString();
             }
-            if(property.equalsIgnoreCase("enabled")) {
+            if (property.equalsIgnoreCase("enabled")) {
                 enabled = in.nextBoolean();
             }
         }
 
-        Feature feature = null;
-        switch(name) {
-            case NameColorFeature.NAME ->  feature = new NameColorFeature(enabled).readJson(in);
-            case NetherPortalCalcFeature.NAME ->  feature = new NetherPortalCalcFeature(enabled).readJson(in);
-        }
+        Optional<Feature> featureOptional = ModFeatures.create(name, enabled, in);
         in.endObject();
-        return feature;
+        return featureOptional.orElse(null);
     }
 }

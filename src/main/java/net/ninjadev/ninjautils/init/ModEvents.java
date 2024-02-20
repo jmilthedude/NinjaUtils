@@ -2,6 +2,7 @@ package net.ninjadev.ninjautils.init;
 
 import net.ninjadev.ninjautils.event.Event;
 import net.ninjadev.ninjautils.event.impl.BlockUseEvent;
+import net.ninjadev.ninjautils.event.impl.InventoryClickEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,8 @@ public class ModEvents {
 
     public static final List<Event<?, ?>> REGISTRY = new ArrayList<>();
 
-    public static final BlockUseEvent BLOCK_USE = register(new BlockUseEvent(true));
+    public static final BlockUseEvent BLOCK_USE = register(new BlockUseEvent());
+    public static final InventoryClickEvent INVENTORY_CLICK = register(new InventoryClickEvent());
 
     public static void release(Object reference) {
         REGISTRY.forEach(event -> event.release(reference));

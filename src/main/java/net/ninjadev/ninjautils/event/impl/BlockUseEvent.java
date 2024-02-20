@@ -7,15 +7,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.ninjadev.ninjautils.event.Event;
+import net.ninjadev.ninjautils.event.CancellableEvent;
 
-public class BlockUseEvent extends Event<BlockUseEvent, BlockUseEvent.Data> {
+public class BlockUseEvent extends CancellableEvent<BlockUseEvent.Data> {
 
-    public BlockUseEvent(boolean cancellable) {
-        super(cancellable);
-    }
-
-    public static class Data {
+    public static class Data extends CancellableEvent.Data {
 
         private final World world;
         private final BlockState state;
@@ -24,8 +20,6 @@ public class BlockUseEvent extends Event<BlockUseEvent, BlockUseEvent.Data> {
         private final Hand hand;
         private final BlockHitResult hit;
         private ActionResult result;
-
-        private boolean cancelled = false;
 
         public Data(World world, BlockState state, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
             this.world = world;
@@ -66,14 +60,6 @@ public class BlockUseEvent extends Event<BlockUseEvent, BlockUseEvent.Data> {
 
         public void setResult(ActionResult result) {
             this.result = result;
-        }
-
-        public boolean isCancelled() {
-            return cancelled;
-        }
-
-        public void setCancelled(boolean cancelled) {
-            this.cancelled = cancelled;
         }
     }
 }
