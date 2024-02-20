@@ -23,15 +23,4 @@ public class NameColorFeature extends Feature {
     public void onDisable() {
 
     }
-
-    @Override
-    public void writeJson(JsonWriter writer) {
-
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public <T extends Feature> T readJson(JsonReader reader) {
-        return (T) this;
-    }
 }

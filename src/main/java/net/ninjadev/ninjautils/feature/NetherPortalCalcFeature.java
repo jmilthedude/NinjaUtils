@@ -1,7 +1,5 @@
 package net.ninjadev.ninjautils.feature;
 
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
@@ -15,8 +13,8 @@ import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
-import net.ninjadev.ninjautils.init.ModEvents;
 import net.ninjadev.ninjautils.event.impl.BlockUseEvent;
+import net.ninjadev.ninjautils.init.ModEvents;
 import net.ninjadev.ninjautils.init.ModSetup;
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -144,15 +142,5 @@ public class NetherPortalCalcFeature extends Feature {
             return new BlockPos(x, y, z);
         }
         return BlockPos.ORIGIN;
-    }
-
-    @Override
-    public void writeJson(JsonWriter writer) {
-
-    }
-
-    @Override
-    public <T extends Feature> T readJson(JsonReader reader) {
-        return (T) this;
     }
 }

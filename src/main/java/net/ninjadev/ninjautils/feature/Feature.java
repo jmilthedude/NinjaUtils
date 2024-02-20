@@ -11,6 +11,7 @@ public abstract class Feature {
     }
 
     public abstract String getName();
+
     private boolean enabled;
 
 
@@ -22,8 +23,13 @@ public abstract class Feature {
 
     public abstract void onDisable();
 
-    public abstract void writeJson(JsonWriter writer);
-    public abstract <T extends Feature> T readJson(JsonReader reader);
+    public void writeJson(JsonWriter writer) {
+
+    }
+
+    public <T extends Feature> T readJson(JsonReader reader) {
+        return (T) this;
+    }
 
     public void onTick() {
 
