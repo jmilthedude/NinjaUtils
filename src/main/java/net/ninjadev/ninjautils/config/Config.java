@@ -7,7 +7,7 @@ import net.ninjadev.ninjautils.config.adapter.FeatureAdapter;
 
 import java.io.*;
 
-public abstract class Config {
+public abstract class Config<T extends Config<?>> {
 
     private static final Gson GSON = new GsonBuilder()
             .excludeFieldsWithoutExposeAnnotation()
@@ -32,9 +32,10 @@ public abstract class Config {
     public abstract String getName();
 
     @SuppressWarnings("unchecked")
-    public <T extends Config> T readConfig() {
+    public T readConfig() {
         try {
-            return (T) GSON.fromJson(new FileReader(this.getConfigFile()), this.getClass());
+            T config = (T) GSON.fromJson(new FileReader(this.getConfigFile()), this.getClass());
+            return this.validate(config);
         } catch (FileNotFoundException e) {
             this.generateConfig();
         }
@@ -43,6 +44,10 @@ public abstract class Config {
     }
 
     protected abstract void reset();
+
+    protected T validate(T config) {
+        return config;
+    }
 
     public void writeConfig() {
         try {
