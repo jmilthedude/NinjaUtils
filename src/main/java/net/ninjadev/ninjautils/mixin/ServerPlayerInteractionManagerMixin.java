@@ -24,7 +24,6 @@ public class ServerPlayerInteractionManagerMixin {
     public void interactBlock(ServerPlayerEntity player, World world, ItemStack stack, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir, BlockPos pos, BlockState state, boolean emptyHands, boolean shouldCancel) {
        BlockUseEvent.Data data = ModEvents.BLOCK_USE.invoke(new BlockUseEvent.Data(world, state, pos, player, hand, hitResult));
        if(data.isCancelled()) {
-           System.out.println("cancelled");
            cir.cancel();
            cir.setReturnValue(ActionResult.FAIL);
 
