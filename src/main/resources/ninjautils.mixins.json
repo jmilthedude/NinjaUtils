@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.ninjadev.ninjautils.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "AbstractBlockStateMixin",
+    "ServerPlayerInteractionManagerMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
