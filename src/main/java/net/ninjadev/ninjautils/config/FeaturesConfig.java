@@ -1,10 +1,7 @@
 package net.ninjadev.ninjautils.config;
 
 import com.google.gson.annotations.Expose;
-import net.ninjadev.ninjautils.feature.Feature;
-import net.ninjadev.ninjautils.feature.InventorySortFeature;
-import net.ninjadev.ninjautils.feature.NameColorFeature;
-import net.ninjadev.ninjautils.feature.NetherPortalCalcFeature;
+import net.ninjadev.ninjautils.feature.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +21,7 @@ public class FeaturesConfig extends Config<FeaturesConfig> {
         features.add(new NameColorFeature(true));
         features.add(new NetherPortalCalcFeature(true));
         features.add(new InventorySortFeature(true));
+        features.add(new PlayerSleepFeature(true));
     }
 
     public boolean isEnabled(String name) {

@@ -1,10 +1,7 @@
 package net.ninjadev.ninjautils.init;
 
 import com.google.gson.stream.JsonReader;
-import net.ninjadev.ninjautils.feature.Feature;
-import net.ninjadev.ninjautils.feature.InventorySortFeature;
-import net.ninjadev.ninjautils.feature.NameColorFeature;
-import net.ninjadev.ninjautils.feature.NetherPortalCalcFeature;
+import net.ninjadev.ninjautils.feature.*;
 
 import java.util.Optional;
 
@@ -28,6 +25,9 @@ public class ModFeatures {
             }
             case InventorySortFeature.NAME -> {
                 return Optional.of(new InventorySortFeature(enabled).readJson(in));
+            }
+            case PlayerSleepFeature.NAME -> {
+                return Optional.of(new PlayerSleepFeature(enabled).readJson(in));
             }
         }
         return Optional.empty();

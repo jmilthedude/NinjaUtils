@@ -8,8 +8,6 @@
     "ScreenHandlerMixin",
     "ServerPlayerInteractionManagerMixin"
   ],
-  "client": [
-  ],
   "injectors": {
     "defaultRequire": 1
   }
