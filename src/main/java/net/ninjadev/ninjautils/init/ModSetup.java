@@ -27,5 +27,8 @@ public class ModSetup {
                 }
             }
         });
+        ServerLifecycleEvents.BEFORE_SAVE.register((server, flush, force) -> {
+            ModConfigs.saveAll();
+        });
     }
 }
