@@ -6,6 +6,8 @@ import net.ninjadev.ninjautils.init.ModConfigs;
 
 public abstract class Feature {
 
+    protected boolean registered = false;
+
     public Feature(boolean enabled) {
         this.enabled = enabled;
     }

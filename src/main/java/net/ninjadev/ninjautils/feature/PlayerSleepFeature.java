@@ -13,7 +13,6 @@ import java.util.*;
 public class PlayerSleepFeature extends Feature {
     public static final String NAME = "player_sleep";
 
-    private boolean registered = false;
     private static final HashMap<UUID, Cooldown> COOLDOWNS = new HashMap<>();
 
     public PlayerSleepFeature(boolean enabled) {
