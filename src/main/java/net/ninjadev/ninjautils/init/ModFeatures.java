@@ -29,6 +29,9 @@ public class ModFeatures {
             case PlayerSleepFeature.NAME -> {
                 return Optional.of(new PlayerSleepFeature(enabled).readJson(in));
             }
+            case FastXPFeature.NAME -> {
+                return Optional.of(new FastXPFeature(enabled).readJson(in));
+            }
         }
         return Optional.empty();
     }

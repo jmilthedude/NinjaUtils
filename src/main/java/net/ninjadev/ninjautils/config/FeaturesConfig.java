@@ -22,6 +22,7 @@ public class FeaturesConfig extends Config<FeaturesConfig> {
         features.add(new NetherPortalCalcFeature(true));
         features.add(new InventorySortFeature(true));
         features.add(new PlayerSleepFeature(true));
+        features.add(new FastXPFeature(true));
     }
 
     public boolean isEnabled(String name) {
