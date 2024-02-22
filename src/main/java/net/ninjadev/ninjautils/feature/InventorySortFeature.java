@@ -24,10 +24,6 @@ public class InventorySortFeature extends Feature {
 
     public static final String NAME = "inventory_sort";
 
-    public InventorySortFeature(boolean enabled) {
-        super(enabled);
-    }
-
     @Override
     public String getName() {
         return NAME;

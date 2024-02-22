@@ -9,10 +9,6 @@ public abstract class Feature {
     protected boolean registered = false;
     private boolean enabled;
 
-    public Feature(boolean enabled) {
-        this.enabled = enabled;
-    }
-
     public abstract String getName();
     public void onTick() {}
 
@@ -29,6 +25,11 @@ public abstract class Feature {
         ModConfigs.FEATURES.markDirty();
     }
     public abstract void onDisable();
+
+    public <T extends Feature> T setEnabled(boolean enabled) {
+        this.enabled = enabled;
+        return (T) this;
+    }
 
     public boolean isEnabled() {
         return this.enabled;

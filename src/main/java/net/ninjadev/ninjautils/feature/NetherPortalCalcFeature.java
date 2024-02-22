@@ -28,10 +28,6 @@ public class NetherPortalCalcFeature extends Feature {
     private static final HashMap<UUID, AtomicLong> timers = new HashMap<>();
     private static final HashMap<UUID, Pair<World, BlockPos>> particles = new HashMap<>();
 
-    public NetherPortalCalcFeature(boolean enabled) {
-        super(enabled);
-    }
-
     @Override
     public String getName() {
         return "nether_portal_calc";

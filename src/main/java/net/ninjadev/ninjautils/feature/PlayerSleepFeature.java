@@ -15,10 +15,6 @@ public class PlayerSleepFeature extends Feature {
 
     private static final HashMap<UUID, Cooldown> COOLDOWNS = new HashMap<>();
 
-    public PlayerSleepFeature(boolean enabled) {
-        super(enabled);
-    }
-
     @Override
     public String getName() {
         return NAME;

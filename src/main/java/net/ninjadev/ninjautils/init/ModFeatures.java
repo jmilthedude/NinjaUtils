@@ -18,19 +18,19 @@ public class ModFeatures {
     public static <T extends Feature> Optional<T> create(String name, boolean enabled, JsonReader in) {
         switch (name) {
             case NameColorFeature.NAME -> {
-                return Optional.of(new NameColorFeature(enabled).readJson(in));
+                return Optional.of(new NameColorFeature().setEnabled(enabled).readJson(in));
             }
             case NetherPortalCalcFeature.NAME -> {
-                return Optional.of(new NetherPortalCalcFeature(enabled).readJson(in));
+                return Optional.of(new NetherPortalCalcFeature().setEnabled(enabled).readJson(in));
             }
             case InventorySortFeature.NAME -> {
-                return Optional.of(new InventorySortFeature(enabled).readJson(in));
+                return Optional.of(new InventorySortFeature().setEnabled(enabled).readJson(in));
             }
             case PlayerSleepFeature.NAME -> {
-                return Optional.of(new PlayerSleepFeature(enabled).readJson(in));
+                return Optional.of(new PlayerSleepFeature().setEnabled(enabled).readJson(in));
             }
             case FastXPFeature.NAME -> {
-                return Optional.of(new FastXPFeature(enabled).readJson(in));
+                return Optional.of(new FastXPFeature().setEnabled(enabled).readJson(in));
             }
         }
         return Optional.empty();

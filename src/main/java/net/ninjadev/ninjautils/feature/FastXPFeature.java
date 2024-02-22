@@ -11,10 +11,6 @@ public class FastXPFeature extends Feature{
 
     public static final String NAME = "fast_xp";
 
-    public FastXPFeature(boolean enabled) {
-        super(enabled);
-    }
-
     @Override
     public String getName() {
         return NAME;
