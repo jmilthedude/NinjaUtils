@@ -18,11 +18,11 @@ public class FeaturesConfig extends Config<FeaturesConfig> {
 
     @Override
     protected void reset() {
-        features.add(new NameColorFeature(true));
-        features.add(new NetherPortalCalcFeature(true));
-        features.add(new InventorySortFeature(true));
-        features.add(new PlayerSleepFeature(true));
-        features.add(new FastXPFeature(true));
+        features.add(new NameColorFeature().setEnabled(true));
+        features.add(new NetherPortalCalcFeature().setEnabled(true));
+        features.add(new InventorySortFeature().setEnabled(true));
+        features.add(new PlayerSleepFeature().setEnabled(true));
+        features.add(new FastXPFeature().setEnabled(true));
     }
 
     public boolean isEnabled(String name) {
