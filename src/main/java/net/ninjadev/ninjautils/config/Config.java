@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.ninjadev.ninjautils.NinjaUtils;
 import net.ninjadev.ninjautils.config.adapter.FeatureAdapter;
+import net.ninjadev.ninjautils.feature.Feature;
 
 import java.io.*;
 
@@ -11,7 +12,7 @@ public abstract class Config<T extends Config<?>> {
 
     private static final Gson GSON = new GsonBuilder()
             .excludeFieldsWithoutExposeAnnotation()
-            .registerTypeAdapterFactory(FeatureAdapter.FACTORY)
+            .registerTypeAdapter(Feature.class, new FeatureAdapter())
             .setPrettyPrinting()
             .create();
     protected File root = new File("config/NinjaUtils/");

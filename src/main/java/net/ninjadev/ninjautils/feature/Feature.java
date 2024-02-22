@@ -1,13 +1,16 @@
 package net.ninjadev.ninjautils.feature;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import net.ninjadev.ninjautils.init.ModConfigs;
 
+import java.io.IOException;
+
 public abstract class Feature {
 
     protected boolean registered = false;
-    private boolean enabled;
+    @Expose private boolean enabled;
 
     public abstract String getName();
     public void onTick() {}
@@ -37,9 +40,17 @@ public abstract class Feature {
 
     /* ------------------------- */
 
-    public void writeJson(JsonWriter writer) {}
+    public void writeJson(JsonWriter writer) throws IOException {
+        writer.name("data");
+        writer.beginObject();
+        this.write(writer);
+        writer.endObject();
+    }
 
-    public <T extends Feature> T readJson(JsonReader reader) {
+    protected void write(JsonWriter writer) throws IOException {
+    }
+
+    public <T extends Feature> T readJson(JsonReader reader) throws IOException {
         return (T) this;
     }
 

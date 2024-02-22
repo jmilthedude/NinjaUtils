@@ -23,6 +23,7 @@ public class FeaturesConfig extends Config<FeaturesConfig> {
         features.add(new InventorySortFeature().setEnabled(true));
         features.add(new PlayerSleepFeature().setEnabled(true));
         features.add(new FastXPFeature().setEnabled(true));
+        features.add(new DeathPointFeature(5).setEnabled(true));
     }
 
     public boolean isEnabled(String name) {
@@ -32,6 +33,10 @@ public class FeaturesConfig extends Config<FeaturesConfig> {
             }
         }
         return false;
+    }
+
+    public <T extends Feature> T getFeature(String name) {
+        return (T) features.stream().filter(feature -> feature.getName().equalsIgnoreCase(name)).findFirst().orElseThrow();
     }
 
     @Override
