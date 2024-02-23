@@ -77,9 +77,9 @@ public class PlayerSleepFeature extends Feature {
     private final Random random = new Random();
 
     private String getSleepMessage(PlayerEntity player) {
-        return this.sleepMessages.stream()
+        List<String> filtered = this.sleepMessages.stream()
                 .filter(msg -> msg.contains("raens") && player.getName().getString().contains("raens"))
-                .toList()
-                .get(random.nextInt(this.sleepMessages.size()));
+                .toList();
+        return filtered.get(random.nextInt(filtered.size()));
     }
 }
