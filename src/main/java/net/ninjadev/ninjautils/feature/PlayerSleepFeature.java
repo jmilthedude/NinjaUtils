@@ -1,6 +1,8 @@
 package net.ninjadev.ninjautils.feature;
 
+import com.google.gson.annotations.Expose;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -8,12 +10,35 @@ import net.minecraft.util.Formatting;
 import net.ninjadev.ninjautils.init.ModSetup;
 import net.ninjadev.ninjautils.util.Cooldown;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 public class PlayerSleepFeature extends Feature {
     public static final String NAME = "player_sleep";
 
     private static final HashMap<UUID, Cooldown> COOLDOWNS = new HashMap<>();
+
+    @Expose private List<String> sleepMessages = List.of(
+            "is taking a little nappy.",
+            "is sweeping wike a wittle baby.",
+            "is dreaming of diamonds.",
+            "is sleeping.",
+            "had a long day so going to bed.",
+            "is \"just resting their eyes\".",
+            "is going mimis.",
+            "is laying in bed scrolling the socials.",
+            "is going to sleep, recalling all the sticks they took from raens... wait what?",
+            "is trying to sleep but probably will only get like 10 seconds of it.",
+            "may be sleeping. Maybe not? Who knows...",
+            "just needs a wee rest..",
+            "is having a nightmare.",
+            "fell head first into the bed.",
+            "is sleeping despite monsters being nearby.",
+            "is making sure Phantoms wont get the better of them.",
+            "is afraid of the dark"
+    );
 
     @Override
     public String getName() {
@@ -31,7 +56,7 @@ public class PlayerSleepFeature extends Feature {
 
                 COOLDOWNS.put(player.getUuid(), new Cooldown(20));
                 MutableText playerName = player.getDisplayName() == null ? player.getName().copy() : player.getDisplayName().copy();
-                MutableText text = playerName.append(Text.literal(this.getSleepMessage()).formatted(Formatting.WHITE));
+                MutableText text = playerName.append(Text.literal(" " + this.getSleepMessage(player)).formatted(Formatting.WHITE));
                 ModSetup.SERVER.getPlayerManager().broadcast(text, false);
 
             });
@@ -51,21 +76,10 @@ public class PlayerSleepFeature extends Feature {
 
     private final Random random = new Random();
 
-    private String getSleepMessage() {
-        List<String> messages = List.of(
-                " is taking a little nappy.",
-                " is sweeping wike a wittle baby.",
-                " is dreaming of diamonds.",
-                " is sleeping.",
-                " had a long day so going to bed.",
-                " is \"just resting their eyes\".",
-                " is going mimis.",
-                " is laying in bed scrolling the socials.",
-                " is going to sleep, recalling all the sticks they took from raens... wait what?",
-                " is trying to sleep but probably will only get like 10 seconds of it.",
-                " may be sleeping. Maybe not? Who knows...",
-                " just needs a wee rest.."
-        );
-        return messages.get(random.nextInt(messages.size()));
+    private String getSleepMessage(PlayerEntity player) {
+        return this.sleepMessages.stream()
+                .filter(msg -> msg.contains("raens") && player.getName().getString().contains("raens"))
+                .toList()
+                .get(random.nextInt(this.sleepMessages.size()));
     }
 }
