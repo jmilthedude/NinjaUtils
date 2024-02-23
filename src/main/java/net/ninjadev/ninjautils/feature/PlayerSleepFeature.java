@@ -78,7 +78,12 @@ public class PlayerSleepFeature extends Feature {
 
     private String getSleepMessage(PlayerEntity player) {
         List<String> filtered = this.sleepMessages.stream()
-                .filter(msg -> msg.contains("raens") && player.getName().getString().contains("raens"))
+                .filter(msg -> {
+                    if (player.getName().getString().contains("raens")) {
+                        return !msg.contains("raens");
+                    }
+                    return true;
+                })
                 .toList();
         return filtered.get(random.nextInt(filtered.size()));
     }

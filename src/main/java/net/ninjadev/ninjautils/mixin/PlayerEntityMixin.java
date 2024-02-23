@@ -14,9 +14,9 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import java.util.List;
 
 @Mixin(PlayerEntity.class)
-public class PlayerEntityMixin {
+public abstract class PlayerEntityMixin {
 
-    @Inject(method = "tickMovement", at = @At(value = "INVOKE", target = "Lcom/google/common/collect/Lists;newArrayList()Ljava/util/ArrayList;", shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD, remap = false)
+    @Inject(method = "tickMovement", at = @At(value = "INVOKE", target = "Lcom/google/common/collect/Lists;newArrayList()Ljava/util/ArrayList;", shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
     public void preEntityCollision(CallbackInfo ci, float f, Box box, List<Entity> list) {
         ModEvents.PLAYER_ENTITY_COLLISION.invoke(new PlayerEntityCollisionEvent.Data((PlayerEntity)(Object)this, list));
     }
