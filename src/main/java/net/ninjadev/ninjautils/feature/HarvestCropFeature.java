@@ -1,6 +1,5 @@
 package net.ninjadev.ninjautils.feature;
 
-import com.google.gson.annotations.Expose;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CropBlock;
@@ -24,7 +23,7 @@ import java.util.List;
 
 public class HarvestCropFeature extends Feature {
 
-    @Expose List<String> blockIds = List.of(
+    private final List<String> blockIds = List.of(
             Registries.BLOCK.getId(Blocks.WHEAT).toString(),
             Registries.BLOCK.getId(Blocks.CARROTS).toString(),
             Registries.BLOCK.getId(Blocks.POTATOES).toString(),
