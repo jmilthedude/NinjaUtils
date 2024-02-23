@@ -1,8 +1,6 @@
 package net.ninjadev.ninjautils.feature;
 
 import com.google.gson.annotations.Expose;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -10,8 +8,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.ninjadev.ninjautils.data.DeathPointState;
-
-import java.io.IOException;
 
 public class DeathPointFeature extends Feature {
 
@@ -53,19 +49,5 @@ public class DeathPointFeature extends Feature {
     @Override
     public void onDisable() {
 
-    }
-
-    @Override
-    public void write(JsonWriter writer) throws IOException {
-        writer.name("maxDeathpoints");
-        writer.value(this.maxDeathpoints);
-    }
-
-    @Override
-    public <T extends Feature> T readJson(JsonReader reader) throws IOException {
-        if (reader.nextName().equalsIgnoreCase("maxDeathpoints")) {
-            this.maxDeathpoints = reader.nextInt();
-        }
-        return super.readJson(reader);
     }
 }
