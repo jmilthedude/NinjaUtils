@@ -9,7 +9,6 @@ import net.minecraft.text.Text;
 import net.ninjadev.ninjautils.data.NameColorState;
 
 import java.awt.*;
-import java.util.UUID;
 
 public class DiscordIntegrationCompat {
 

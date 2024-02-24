@@ -2,7 +2,7 @@ package net.ninjadev.ninjautils.config.adapter;
 
 import com.google.gson.*;
 import net.ninjadev.ninjautils.NinjaUtils;
-import net.ninjadev.ninjautils.feature.*;
+import net.ninjadev.ninjautils.feature.Feature;
 
 import java.lang.reflect.Type;
 

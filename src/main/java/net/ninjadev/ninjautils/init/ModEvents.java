@@ -2,8 +2,8 @@ package net.ninjadev.ninjautils.init;
 
 import net.ninjadev.ninjautils.event.Event;
 import net.ninjadev.ninjautils.event.impl.BlockUseEvent;
-import net.ninjadev.ninjautils.event.impl.PlayerEntityCollisionEvent;
 import net.ninjadev.ninjautils.event.impl.InventoryClickEvent;
+import net.ninjadev.ninjautils.event.impl.PlayerEntityCollisionEvent;
 
 import java.util.ArrayList;
 import java.util.List;

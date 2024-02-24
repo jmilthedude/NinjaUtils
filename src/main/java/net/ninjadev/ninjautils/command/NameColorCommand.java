@@ -19,7 +19,7 @@ import net.minecraft.util.Formatting;
 import net.ninjadev.ninjautils.data.NameColorState;
 import net.ninjadev.ninjautils.init.ModSetup;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
