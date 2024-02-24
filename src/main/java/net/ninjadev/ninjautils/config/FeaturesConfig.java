@@ -25,6 +25,7 @@ public class FeaturesConfig extends Config<FeaturesConfig> {
         features.add(new FastXPFeature().setEnabled(true));
         features.add(new DeathPointFeature(5).setEnabled(true));
         features.add(new HarvestCropFeature().setEnabled(true));
+        features.add(new InventorySaveFeature().setEnabled(true));
     }
 
     public boolean isEnabled(String name) {
