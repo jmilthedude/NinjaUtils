@@ -7,6 +7,8 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.ninjadev.ninjautils.NinjaUtils;
+import net.ninjadev.ninjautils.compat.DiscordIntegrationCompat;
 import net.ninjadev.ninjautils.init.ModSetup;
 import net.ninjadev.ninjautils.util.Cooldown;
 
@@ -58,7 +60,10 @@ public class PlayerSleepFeature extends Feature {
                 MutableText playerName = player.getDisplayName() == null ? player.getName().copy() : player.getDisplayName().copy();
                 MutableText text = playerName.append(Text.literal(" " + this.getSleepMessage(player)).formatted(Formatting.WHITE));
                 ModSetup.SERVER.getPlayerManager().broadcast(text.setStyle(text.getStyle().withItalic(true)), false);
-
+                DiscordIntegrationCompat discord = NinjaUtils.getDiscord();
+                if (discord != null) {
+                    discord.sendMessage(player, text);
+                }
             });
             registered = true;
         }
