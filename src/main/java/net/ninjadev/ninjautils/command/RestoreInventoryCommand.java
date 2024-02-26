@@ -13,11 +13,13 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.ninjadev.ninjautils.data.InventorySaveState;
 import net.ninjadev.ninjautils.data.entry.InventoryEntry;
+import net.ninjadev.ninjautils.util.TextUtils;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import static net.minecraft.server.command.CommandManager.argument;
+import static net.minecraft.server.command.CommandManager.literal;
 
 public class RestoreInventoryCommand extends Command {
 
@@ -33,13 +35,26 @@ public class RestoreInventoryCommand extends Command {
 
     @Override
     public void build(LiteralArgumentBuilder<ServerCommandSource> builder) {
-        builder.then(argument("player", EntityArgumentType.player())
-                .then(argument("index", IntegerArgumentType.integer(0)).suggests(new IndexSuggestionProvider())
-                        .executes(this::setNameColor)));
+        builder.then(literal("query")
+                        .then(argument("player", EntityArgumentType.player()).executes(this::queryPlayer)))
+                .then(argument("player", EntityArgumentType.player())
+                        .then(argument("index", IntegerArgumentType.integer(0)).suggests(new IndexSuggestionProvider())
+                                .executes(this::restoreInventory)));
     }
 
-    private int setNameColor(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-        ServerPlayerEntity player = context.getSource().getPlayerOrThrow();
+    private int queryPlayer(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+        ServerPlayerEntity player = EntityArgumentType.getPlayer(context, "player");
+        List<InventoryEntry> inventories = InventorySaveState.get().getSavedInventories(player);
+        inventories.sort(InventoryEntry::compareTo);
+        int index = 0;
+        for (InventoryEntry inventory : inventories) {
+            context.getSource().sendMessage(Text.literal(String.format("%s: Time = %s, Items = %s", index++, TextUtils.getDuration(System.currentTimeMillis() - inventory.getTimestamp()), inventory.getItemCount())));
+        }
+        return 1;
+    }
+
+    private int restoreInventory(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+        ServerPlayerEntity player = EntityArgumentType.getPlayer(context, "player");
         int index = IntegerArgumentType.getInteger(context, "index");
 
         InventorySaveState.get().restore(player, index);

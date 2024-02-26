@@ -21,7 +21,6 @@ import net.ninjadev.ninjautils.util.TextUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 public class DeathPointState extends PersistentState {
 
@@ -152,11 +151,7 @@ public class DeathPointState extends PersistentState {
 
         private String getTimeSince() {
             long timeSince = System.currentTimeMillis() - this.timeStamp;
-            return String.format("%02d:%02d:%02d",
-                    TimeUnit.MILLISECONDS.toHours(timeSince),
-                    TimeUnit.MILLISECONDS.toMinutes(timeSince) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(timeSince)),
-                    TimeUnit.MILLISECONDS.toSeconds(timeSince) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeSince))
-            );
+            return TextUtils.getDuration(timeSince);
         }
     }
 }

@@ -19,6 +19,14 @@ public class InventoryEntry extends HashMap<Integer, ItemStack> implements Compa
         this.timestamp = timestamp;
     }
 
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public int getItemCount() {
+        return this.size();
+    }
+
     public InventoryEntry applyInventory(ServerPlayerEntity player) {
         this.clear();
         PlayerInventory inventory = player.getInventory();
