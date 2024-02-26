@@ -9,6 +9,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.ninjadev.ninjautils.NinjaUtils;
 import net.ninjadev.ninjautils.compat.DiscordIntegrationCompat;
+import net.ninjadev.ninjautils.init.ModConfigs;
 import net.ninjadev.ninjautils.init.ModSetup;
 import net.ninjadev.ninjautils.util.Cooldown;
 
@@ -80,6 +81,11 @@ public class PlayerSleepFeature extends Feature {
     }
 
     private final Random random = new Random();
+
+    public void addMessage(String message) {
+        this.sleepMessages.add(message);
+        ModConfigs.FEATURES.markDirty();
+    }
 
     private String getSleepMessage(PlayerEntity player) {
         List<String> filtered = this.sleepMessages.stream()
