@@ -26,6 +26,9 @@ public class FeaturesConfig extends Config<FeaturesConfig> {
         features.add(new DeathPointFeature(5).setEnabled(true));
         features.add(new HarvestCropFeature().setEnabled(true));
         features.add(new InventorySaveFeature().setEnabled(true));
+        features.add(new ShulkerDropsTwoFeature().setEnabled(true));
+        features.add(new SpawnDragonEggFeature().setEnabled(true));
+        features.add(new PeacefulPlayerFeature(List.of("jmilthedude", "player2")).setEnabled(true));
     }
 
     public boolean isEnabled(String name) {
