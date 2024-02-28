@@ -40,8 +40,6 @@ public class InventorySortFeature extends Feature {
     }
 
     private void sortInventory(InventoryClickEvent.Data data) {
-        int button = data.getButton();
-        if (button != 2) return;
         if (data.getSlotActionType() != SlotActionType.THROW) return;
         if (data.getSlotActionType() == SlotActionType.THROW && data.getSlotIndex() != -999) return;
         Inventory inventory = this.getInventory(data.getPlayer(), data.getSlots());
