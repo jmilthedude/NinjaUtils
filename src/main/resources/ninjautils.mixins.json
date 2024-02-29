@@ -14,7 +14,8 @@
     "SaveAllCommandMixin",
     "ScreenHandlerMixin",
     "ServerPlayerEntityMixin",
-    "ServerPlayerInteractionManagerMixin"
+    "ServerPlayerInteractionManagerMixin",
+    "ServerWorldMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -29,6 +29,7 @@ public class FeaturesConfig extends Config<FeaturesConfig> {
         features.add(new ShulkerDropsTwoFeature().setEnabled(true));
         features.add(new SpawnDragonEggFeature().setEnabled(true));
         features.add(new PeacefulPlayerFeature(List.of("jmilthedude", "player2")).setEnabled(true));
+        features.add(new DimensionSymbolFeature().setEnabled(true));
     }
 
     public boolean isEnabled(String name) {
