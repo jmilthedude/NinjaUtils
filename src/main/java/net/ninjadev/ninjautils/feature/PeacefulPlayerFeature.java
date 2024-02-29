@@ -30,6 +30,16 @@ public class PeacefulPlayerFeature extends Feature {
 
     }
 
+    public boolean addPlayer(String playerName) {
+        if (this.players.contains(playerName)) return false;
+        return this.players.add(playerName);
+    }
+
+    public boolean removePlayer(String playerName) {
+        if (!this.players.contains(playerName)) return false;
+        return this.players.remove(playerName);
+    }
+
     public List<String> getPlayers() {
         return players;
     }
