@@ -34,16 +34,18 @@ public class TextUtils {
         return DurationFormatUtils.formatDuration(timeInMillis, "HH:mm:ss");
     }
 
-    public static Text getPlayerNameStyled(ServerPlayerEntity player) {
+    public static Text getPlayerNameStyled(ServerPlayerEntity player, boolean withDimension) {
+        MutableText name = Text.literal("");
+        if (withDimension && ModConfigs.FEATURES.isEnabled(DimensionSymbolFeature.NAME)) {
+            Color dimensionColor = TextUtils.getWorldColor(player.getWorld().getRegistryKey());
+            name.append(Text.literal("■ ").withColor(dimensionColor.getRGB()));
+        }
         Color color = Color.WHITE;
         if (ModConfigs.FEATURES.isEnabled(NameColorFeature.NAME)) {
             color = NameColorState.get().getPlayerColor(player.getUuid());
         }
-        MutableText name = Text.literal(player.getNameForScoreboard()).withColor(color.getRGB());
-        if (ModConfigs.FEATURES.isEnabled(DimensionSymbolFeature.NAME)) {
-            Color dimensionColor = TextUtils.getWorldColor(player.getWorld().getRegistryKey());
-            name.append(Text.literal(" ■").withColor(dimensionColor.getRGB()));
-        }
+        name.append(Text.literal(player.getNameForScoreboard()).withColor(color.getRGB()));
+
         return name;
     }
 }

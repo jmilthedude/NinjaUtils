@@ -30,7 +30,7 @@ public abstract class PlayerEntityMixin {
         PlayerEntity player = (PlayerEntity) (Object) this;
         if(player instanceof ServerPlayerEntity serverPlayer) {
             cir.cancel();
-            cir.setReturnValue(TextUtils.getPlayerNameStyled(serverPlayer));
+            cir.setReturnValue(TextUtils.getPlayerNameStyled(serverPlayer, false));
         }
     }
 

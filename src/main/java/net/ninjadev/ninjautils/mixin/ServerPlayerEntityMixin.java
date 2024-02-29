@@ -13,6 +13,6 @@ public class ServerPlayerEntityMixin {
     @Inject(method = "getPlayerListName", at = @At("RETURN"), cancellable = true)
     public void onGetPlayerListName(CallbackInfoReturnable<Text> cir) {
         ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
-        cir.setReturnValue(TextUtils.getPlayerNameStyled(player));
+        cir.setReturnValue(TextUtils.getPlayerNameStyled(player, true));
     }
 }
