@@ -39,7 +39,7 @@ public abstract class LivingEntityMixin {
         LivingEntity entity = (LivingEntity) (Object) this;
         if (!(entity instanceof ShulkerEntity)) return;
 
-        if (!ModConfigs.FEATURES.isEnabled(ShulkerDropsTwoFeature.NAME)) return;
+        if (!ModConfigs.FEATURES.isEnabled(ShulkerDropsTwoFeature.NAME) || !(damageSource.getSource() instanceof ServerPlayerEntity)) return;
 
         ci.cancel();
 
