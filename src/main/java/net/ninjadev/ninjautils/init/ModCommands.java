@@ -11,6 +11,7 @@ public class ModCommands {
         register(new RestoreInventoryCommand());
         register(new SleepMessageCommand());
         register(new PeacefulPlayerCommand());
+        register(new EntitiesCommand());
     }
 
     private static <T extends Command> void register(T command) {
