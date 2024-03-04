@@ -15,7 +15,8 @@
     "ScreenHandlerMixin",
     "ServerPlayerEntityMixin",
     "ServerPlayerInteractionManagerMixin",
-    "ServerWorldMixin"
+    "ServerWorldMixin",
+    "SimpleBlockFeatureMixin"
   ],
   "injectors": {
     "defaultRequire": 1
