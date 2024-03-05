@@ -57,7 +57,7 @@ public class PlayerSleepFeature extends Feature {
 
                 if (COOLDOWNS.containsKey(player.getUuid())) return;
 
-                COOLDOWNS.put(player.getUuid(), new Cooldown(20));
+                COOLDOWNS.put(player.getUuid(), new Cooldown(300));
                 MutableText playerName = player.getDisplayName() == null ? player.getName().copy() : player.getDisplayName().copy();
                 MutableText text = playerName.append(Text.literal(" " + this.getSleepMessage(player)).formatted(Formatting.WHITE));
                 ModSetup.SERVER.getPlayerManager().broadcast(text.setStyle(text.getStyle().withItalic(true)), false);
