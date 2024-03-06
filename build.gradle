@@ -12,7 +12,8 @@ repositories {
 dependencies {
 }
 
-allprojects {
+subprojects {
+
     apply plugin: "fabric-loom"
     repositories {
     }

@@ -18,6 +18,19 @@ dependencies {
     compileOnly('de.erdbeerbaerlp:dcintegration.common:3.0.6')
 }
 
+loom {
+    runs {
+        server {
+            programArg("nogui");
+            environment("server");
+            defaultMainClass(net.fabricmc.loom.util.Constants.Knot.KNOT_SERVER);
+            name = "NinjaUtils-Server"
+            ideConfigGenerated = true
+            source = sourceSets.main
+        }
+    }
+}
+
 processResources {
     inputs.property "version", project.version
     inputs.property "minecraft_version", project.minecraft_version

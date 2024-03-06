@@ -15,6 +15,20 @@ dependencies {
     implementation project(path: ":common", configuration: "namedElements")
 }
 
+loom {
+    runs {
+        client {
+            startFirstThread();
+            environment("client");
+            defaultMainClass(net.fabricmc.loom.util.Constants.Knot.KNOT_CLIENT);
+            runDir = "run"
+            name = "NinjaUtils-Client"
+            ideConfigGenerated = true
+            source = sourceSets.main
+        }
+    }
+}
+
 processResources {
     inputs.property "version", project.version
     inputs.property "minecraft_version", project.minecraft_version
