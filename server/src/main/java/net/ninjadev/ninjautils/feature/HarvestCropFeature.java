@@ -16,10 +16,14 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
+import net.ninjadev.ninjautils.common.config.FeaturesConfig;
+import net.ninjadev.ninjautils.common.feature.Feature;
 import net.ninjadev.ninjautils.event.impl.BlockUseEvent;
+import net.ninjadev.ninjautils.init.ModConfigs;
 import net.ninjadev.ninjautils.init.ModEvents;
 
 import java.util.List;
+import java.util.Optional;
 
 public class HarvestCropFeature extends Feature {
 
@@ -89,5 +93,10 @@ public class HarvestCropFeature extends Feature {
     @Override
     public void onDisable() {
 
+    }
+
+    @Override
+    public <C extends FeaturesConfig<?>> Optional<C> getConfig() {
+        return (Optional<C>) Optional.ofNullable(ModConfigs.FEATURES);
     }
 }

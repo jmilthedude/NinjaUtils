@@ -1,4 +1,4 @@
-package net.ninjadev.ninjautilsclient.config.base.adapter;
+package net.ninjadev.ninjautils.common.config.adapter;
 
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;

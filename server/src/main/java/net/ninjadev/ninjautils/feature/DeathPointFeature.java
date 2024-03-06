@@ -7,7 +7,12 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.ninjadev.ninjautils.common.config.FeaturesConfig;
+import net.ninjadev.ninjautils.common.feature.Feature;
 import net.ninjadev.ninjautils.data.DeathPointState;
+import net.ninjadev.ninjautils.init.ModConfigs;
+
+import java.util.Optional;
 
 public class DeathPointFeature extends Feature {
 
@@ -49,5 +54,10 @@ public class DeathPointFeature extends Feature {
     @Override
     public void onDisable() {
 
+    }
+
+    @Override
+    public <C extends FeaturesConfig<?>> Optional<C> getConfig() {
+        return (Optional<C>) Optional.ofNullable(ModConfigs.FEATURES);
     }
 }

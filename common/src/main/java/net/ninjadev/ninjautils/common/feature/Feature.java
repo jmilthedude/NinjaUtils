@@ -1,7 +1,10 @@
-package net.ninjadev.ninjautils.feature;
+package net.ninjadev.ninjautils.common.feature;
 
 import com.google.gson.annotations.Expose;
-import net.ninjadev.ninjautils.init.ModConfigs;
+import net.ninjadev.ninjautils.common.config.Config;
+import net.ninjadev.ninjautils.common.config.FeaturesConfig;
+
+import java.util.Optional;
 
 public abstract class Feature {
 
@@ -14,24 +17,30 @@ public abstract class Feature {
     public void enable() {
         this.enabled = true;
         this.onEnable();
-        ModConfigs.FEATURES.markDirty();
+        this.getConfig().ifPresent(Config::markDirty);
     }
     public abstract void onEnable();
 
     public void disable() {
         this.enabled = false;
         this.onDisable();
-        ModConfigs.FEATURES.markDirty();
+        this.getConfig().ifPresent(Config::markDirty);
     }
     public abstract void onDisable();
 
     public <T extends Feature> T setEnabled(boolean enabled) {
-        this.enabled = enabled;
+        if(enabled) {
+            this.enable();
+        } else {
+            this.disable();
+        }
         return (T) this;
     }
 
     public boolean isEnabled() {
         return this.enabled;
     }
+
+    public abstract <C extends FeaturesConfig<?>> Optional<C> getConfig();
 
 }

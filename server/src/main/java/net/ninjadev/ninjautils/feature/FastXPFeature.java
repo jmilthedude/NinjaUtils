@@ -3,11 +3,16 @@ package net.ninjadev.ninjautils.feature;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.ninjadev.ninjautils.common.config.FeaturesConfig;
+import net.ninjadev.ninjautils.common.feature.Feature;
 import net.ninjadev.ninjautils.event.impl.PlayerEntityCollisionEvent;
+import net.ninjadev.ninjautils.init.ModConfigs;
 import net.ninjadev.ninjautils.init.ModEvents;
 import net.ninjadev.ninjautils.mixin.PlayerEntityAccessor;
 
-public class FastXPFeature extends Feature{
+import java.util.Optional;
+
+public class FastXPFeature extends Feature {
 
     public static final String NAME = "fast_xp";
 
@@ -36,5 +41,10 @@ public class FastXPFeature extends Feature{
     @Override
     public void onDisable() {
         ModEvents.PLAYER_ENTITY_COLLISION.release(this);
+    }
+
+    @Override
+    public <C extends FeaturesConfig<?>> Optional<C> getConfig() {
+        return (Optional<C>) Optional.ofNullable(ModConfigs.FEATURES);
     }
 }

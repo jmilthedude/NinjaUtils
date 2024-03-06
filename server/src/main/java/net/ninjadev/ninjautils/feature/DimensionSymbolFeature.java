@@ -5,9 +5,13 @@ import net.minecraft.network.packet.s2c.play.PlayerListS2CPacket;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
+import net.ninjadev.ninjautils.common.config.FeaturesConfig;
+import net.ninjadev.ninjautils.common.feature.Feature;
+import net.ninjadev.ninjautils.init.ModConfigs;
 import net.ninjadev.ninjautils.init.ModSetup;
 
 import java.util.List;
+import java.util.Optional;
 
 public class DimensionSymbolFeature extends Feature {
 
@@ -51,5 +55,10 @@ public class DimensionSymbolFeature extends Feature {
         List<ServerPlayerEntity> playerList = playerManager.getPlayerList();
         playerManager.sendToAll(PlayerListS2CPacket.entryFromPlayer(playerList));
         this.hasChanged = false;
+    }
+
+    @Override
+    public <C extends FeaturesConfig<?>> Optional<C> getConfig() {
+        return (Optional<C>) Optional.ofNullable(ModConfigs.FEATURES);
     }
 }

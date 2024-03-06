@@ -1,10 +1,12 @@
-package net.ninjadev.ninjautils.config;
+package net.ninjadev.ninjautils.common.config;
+
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.ninjadev.ninjautils.NinjaUtils;
-import net.ninjadev.ninjautils.config.adapter.FeatureAdapter;
-import net.ninjadev.ninjautils.feature.Feature;
+import net.ninjadev.ninjautils.common.config.adapter.FeatureAdapter;
+import net.ninjadev.ninjautils.common.config.adapter.IdentifierAdapter;
+import net.ninjadev.ninjautils.common.feature.Feature;
+import net.ninjadev.ninjautils.common.util.SharedConstants;
 
 import java.io.*;
 
@@ -13,6 +15,7 @@ public abstract class Config<T extends Config<?>> {
     private static final Gson GSON = new GsonBuilder()
             .excludeFieldsWithoutExposeAnnotation()
             .registerTypeAdapter(Feature.class, new FeatureAdapter())
+            .registerTypeAdapterFactory(IdentifierAdapter.FACTORY)
             .setPrettyPrinting()
             .create();
     protected File root = new File("config/NinjaUtils/");
@@ -58,7 +61,7 @@ public abstract class Config<T extends Config<?>> {
             GSON.toJson(this, writer);
             writer.flush();
             writer.close();
-            NinjaUtils.LOG.info("Saved " + this.getName());
+            SharedConstants.LOG.info("Saved " + this.getName());
         } catch (IOException e) {
             e.printStackTrace();
         }

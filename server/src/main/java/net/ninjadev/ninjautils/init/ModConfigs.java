@@ -1,13 +1,13 @@
 package net.ninjadev.ninjautils.init;
 
-import net.ninjadev.ninjautils.config.FeaturesConfig;
+import net.ninjadev.ninjautils.config.ServerFeaturesConfig;
 
 public class ModConfigs {
 
-    public static FeaturesConfig FEATURES;
+    public static ServerFeaturesConfig FEATURES;
 
     public static void init() {
-        FEATURES = new FeaturesConfig().readConfig();
+        FEATURES = new ServerFeaturesConfig().readConfig();
     }
 
     public static void saveAll() {

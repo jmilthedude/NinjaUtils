@@ -8,6 +8,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
+import net.ninjadev.ninjautils.common.config.FeaturesConfig;
+import net.ninjadev.ninjautils.common.feature.Feature;
+import net.ninjadev.ninjautils.init.ModConfigs;
 import net.ninjadev.ninjautils.init.ModEvents;
 
 import java.util.List;
@@ -51,5 +54,10 @@ public class RandomFlowersFeature extends Feature {
     @Override
     public void onDisable() {
         ModEvents.FLOWER_GENERATION.release(this);
+    }
+
+    @Override
+    public <C extends FeaturesConfig<?>> Optional<C> getConfig() {
+        return (Optional<C>) Optional.ofNullable(ModConfigs.FEATURES);
     }
 }

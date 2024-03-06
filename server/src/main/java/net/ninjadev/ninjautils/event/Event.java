@@ -1,6 +1,6 @@
 package net.ninjadev.ninjautils.event;
 
-import net.ninjadev.ninjautils.NinjaUtils;
+import net.ninjadev.ninjautils.common.util.SharedConstants;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -28,7 +28,7 @@ public abstract class Event<E extends Event<E, T>, T> {
                     try {
                         consumer.accept(data);
                     } catch (Exception e) {
-                        NinjaUtils.LOG.error("Error invoking event {}: {}", this.getClass().getSimpleName(), e.getMessage());
+                        SharedConstants.LOG.error("Error invoking event {}: {}", this.getClass().getSimpleName(), e.getMessage());
                     }
                 });
         return data;

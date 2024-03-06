@@ -1,13 +1,14 @@
-package net.ninjadev.ninjautils.feature;
+package net.ninjadev.ninjautilsclient.feature;
 
 import net.ninjadev.ninjautils.common.config.FeaturesConfig;
 import net.ninjadev.ninjautils.common.feature.Feature;
-import net.ninjadev.ninjautils.init.ModConfigs;
+import net.ninjadev.ninjautilsclient.init.ModConfigs;
 
 import java.util.Optional;
 
-public class NameColorFeature extends Feature {
-    public static final String NAME = "name_color";
+public class AntiFogFeature extends Feature {
+
+    public static final String NAME = "anti_fog";
 
     @Override
     public String getName() {

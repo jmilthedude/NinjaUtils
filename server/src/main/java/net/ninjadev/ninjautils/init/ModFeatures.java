@@ -1,6 +1,6 @@
 package net.ninjadev.ninjautils.init;
 
-import net.ninjadev.ninjautils.feature.Feature;
+import net.ninjadev.ninjautils.common.feature.Feature;
 
 public class ModFeatures {
 

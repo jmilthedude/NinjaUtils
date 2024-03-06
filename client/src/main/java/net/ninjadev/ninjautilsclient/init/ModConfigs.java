@@ -1,17 +1,12 @@
 package net.ninjadev.ninjautilsclient.init;
 
-
-import net.ninjadev.ninjautilsclient.config.AntiFogModuleConfig;
-import net.ninjadev.ninjautilsclient.config.FullBrightnessModuleConfig;
+import net.ninjadev.ninjautilsclient.config.ClientFeaturesConfig;
 
 public class ModConfigs {
 
-    public static AntiFogModuleConfig ANTI_FOG;
-    public static FullBrightnessModuleConfig FULL_BRIGHT;
-
+    public static ClientFeaturesConfig FEATURES;
 
     public static void register() {
-        ANTI_FOG = new AntiFogModuleConfig().readConfig();
-        FULL_BRIGHT = new FullBrightnessModuleConfig().readConfig();
+        FEATURES = new ClientFeaturesConfig().readConfig();
     }
 }

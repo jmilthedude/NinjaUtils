@@ -8,15 +8,14 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.ninjadev.ninjautils.NinjaUtils;
+import net.ninjadev.ninjautils.common.config.FeaturesConfig;
+import net.ninjadev.ninjautils.common.feature.Feature;
 import net.ninjadev.ninjautils.compat.DiscordIntegrationCompat;
 import net.ninjadev.ninjautils.init.ModConfigs;
 import net.ninjadev.ninjautils.init.ModSetup;
 import net.ninjadev.ninjautils.util.Cooldown;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 public class PlayerSleepFeature extends Feature {
     public static final String NAME = "player_sleep";
@@ -97,5 +96,10 @@ public class PlayerSleepFeature extends Feature {
                 })
                 .toList();
         return filtered.get(random.nextInt(filtered.size()));
+    }
+
+    @Override
+    public <C extends FeaturesConfig<?>> Optional<C> getConfig() {
+        return (Optional<C>) Optional.ofNullable(ModConfigs.FEATURES);
     }
 }

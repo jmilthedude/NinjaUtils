@@ -13,12 +13,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.util.collection.DefaultedList;
+import net.ninjadev.ninjautils.common.config.FeaturesConfig;
+import net.ninjadev.ninjautils.common.feature.Feature;
 import net.ninjadev.ninjautils.event.impl.InventoryClickEvent;
+import net.ninjadev.ninjautils.init.ModConfigs;
 import net.ninjadev.ninjautils.init.ModEvents;
 import net.ninjadev.ninjautils.util.ItemStackComparator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class InventorySortFeature extends Feature {
 
@@ -122,5 +126,10 @@ public class InventorySortFeature extends Feature {
             }
         }
         return -1;
+    }
+
+    @Override
+    public <C extends FeaturesConfig<?>> Optional<C> getConfig() {
+        return (Optional<C>) Optional.ofNullable(ModConfigs.FEATURES);
     }
 }
