@@ -1,4 +1,4 @@
-package net.ninjadev.ninjautilsclient.init;
+package net.ninjadev.ninjautils.init;
 
 
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;

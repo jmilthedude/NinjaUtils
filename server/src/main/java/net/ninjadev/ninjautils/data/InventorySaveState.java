@@ -73,7 +73,7 @@ public class InventorySaveState extends PersistentState {
         for (String key : nbt.getKeys()) {
             NbtList inventories = nbt.getList(key, NbtElement.COMPOUND_TYPE);
             inventories.stream().map(element -> (NbtCompound) element).forEach(inventoryNbt -> {
-                net.ninjadev.ninjautils.data.entry.InventoryEntry.fromNbt(inventoryNbt).ifPresent(value -> state.addInventory(UUID.fromString(key), value));
+                InventoryEntry.fromNbt(inventoryNbt).ifPresent(value -> state.addInventory(UUID.fromString(key), value));
             });
         }
         return state;

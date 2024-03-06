@@ -1,8 +1,8 @@
-package net.ninjadev.ninjautilsclient.config;
+package net.ninjadev.ninjautils.config;
 
+import net.ninjadev.ninjautils.feature.AntiFogFeature;
+import net.ninjadev.ninjautils.feature.FullBrightnessFeature;
 import net.ninjadev.ninjautils.common.config.FeaturesConfig;
-import net.ninjadev.ninjautilsclient.feature.AntiFogFeature;
-import net.ninjadev.ninjautilsclient.feature.FullBrightnessFeature;
 
 public class ClientFeaturesConfig extends FeaturesConfig<ClientFeaturesConfig> {
 

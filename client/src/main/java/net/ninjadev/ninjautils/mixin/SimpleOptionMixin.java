@@ -1,4 +1,4 @@
-package net.ninjadev.ninjautilsclient.mixin;
+package net.ninjadev.ninjautils.mixin;
 
 import net.minecraft.client.option.SimpleOption;
 import net.minecraft.client.resource.language.I18n;

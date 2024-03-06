@@ -1,8 +1,8 @@
-package net.ninjadev.ninjautilsclient.feature;
+package net.ninjadev.ninjautils.feature;
 
 import net.ninjadev.ninjautils.common.config.FeaturesConfig;
 import net.ninjadev.ninjautils.common.feature.Feature;
-import net.ninjadev.ninjautilsclient.init.ModConfigs;
+import net.ninjadev.ninjautils.init.ModConfigs;
 
 import java.util.Optional;
 

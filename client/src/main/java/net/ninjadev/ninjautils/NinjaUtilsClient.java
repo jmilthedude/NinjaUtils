@@ -1,8 +1,8 @@
-package net.ninjadev.ninjautilsclient;
+package net.ninjadev.ninjautils;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.ninjadev.ninjautilsclient.init.ModKeybinds;
-import net.ninjadev.ninjautilsclient.init.ModSetup;
+import net.ninjadev.ninjautils.init.ModKeybinds;
+import net.ninjadev.ninjautils.init.ModSetup;
 
 public class NinjaUtilsClient implements ClientModInitializer {
 

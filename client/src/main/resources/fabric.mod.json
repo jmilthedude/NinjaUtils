@@ -14,7 +14,7 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "net.ninjadev.ninjautilsclient.NinjaUtilsClient"
+      "net.ninjadev.ninjautils.NinjaUtilsClient"
     ]
   },
   "mixins": [

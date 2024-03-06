@@ -5,27 +5,29 @@ import net.fabricmc.fabric.api.networking.v1.PacketType;
 import net.minecraft.network.PacketByteBuf;
 import net.ninjadev.ninjautils.common.util.SharedConstants;
 
+import java.util.UUID;
+
 public class NotifyServerPacket implements FabricPacket {
 
     public static final PacketType<NotifyServerPacket> TYPE = PacketType.create(SharedConstants.clientId("notify_server"), NotifyServerPacket::new);
 
-    private final int test;
+    private final UUID playerId;
 
     public NotifyServerPacket(PacketByteBuf buf) {
-        this.test = buf.readInt();
+        this(buf.readUuid());
     }
 
-    public NotifyServerPacket(int test) {
-        this.test = test;
+    public NotifyServerPacket(UUID playerId) {
+        this.playerId = playerId;
     }
 
-    public int getTest() {
-        return test;
+    public UUID getPlayerId() {
+        return playerId;
     }
 
     @Override
     public void write(PacketByteBuf buf) {
-        buf.writeInt(this.test);
+        buf.writeUuid(this.playerId);
     }
 
     @Override

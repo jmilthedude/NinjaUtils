@@ -1,10 +1,10 @@
-package net.ninjadev.ninjautilsclient.mixin;
+package net.ninjadev.ninjautils.mixin;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.render.BackgroundRenderer;
 import net.minecraft.client.render.Camera;
-import net.ninjadev.ninjautilsclient.feature.AntiFogFeature;
-import net.ninjadev.ninjautilsclient.init.ModConfigs;
+import net.ninjadev.ninjautils.feature.AntiFogFeature;
+import net.ninjadev.ninjautils.init.ModConfigs;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

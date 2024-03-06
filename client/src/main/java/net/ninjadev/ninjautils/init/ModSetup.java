@@ -1,13 +1,13 @@
-package net.ninjadev.ninjautilsclient.init;
+package net.ninjadev.ninjautils.init;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.ninjadev.ninjautils.feature.AntiFogFeature;
 import net.ninjadev.ninjautils.common.feature.Feature;
 import net.ninjadev.ninjautils.common.network.NotifyServerPacket;
-import net.ninjadev.ninjautilsclient.feature.AntiFogFeature;
-import net.ninjadev.ninjautilsclient.feature.FullBrightnessFeature;
+import net.ninjadev.ninjautils.feature.FullBrightnessFeature;
 
 public class ModSetup {
 
@@ -20,7 +20,9 @@ public class ModSetup {
         ClientTickEvents.END_CLIENT_TICK.register(client -> ModConfigs.FEATURES.features.stream().filter(Feature::isEnabled).forEach(Feature::onTick));
 
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
-            ClientPlayNetworking.send(new NotifyServerPacket(1));
+            if (client.player != null) {
+                ClientPlayNetworking.send(new NotifyServerPacket(client.player.getUuid()));
+            }
         });
 
     }

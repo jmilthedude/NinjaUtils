@@ -1,6 +1,6 @@
-package net.ninjadev.ninjautilsclient.init;
+package net.ninjadev.ninjautils.init;
 
-import net.ninjadev.ninjautilsclient.config.ClientFeaturesConfig;
+import net.ninjadev.ninjautils.config.ClientFeaturesConfig;
 
 public class ModConfigs {
 

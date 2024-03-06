@@ -1,4 +1,4 @@
-package net.ninjadev.ninjautilsclient.init;
+package net.ninjadev.ninjautils.init;
 
 public class ModNetwork {
 

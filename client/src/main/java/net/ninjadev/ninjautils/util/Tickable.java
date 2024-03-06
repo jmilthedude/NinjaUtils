@@ -1,4 +1,4 @@
-package net.ninjadev.ninjautilsclient.util;
+package net.ninjadev.ninjautils.util;
 
 public interface Tickable {
 
