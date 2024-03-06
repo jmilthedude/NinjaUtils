@@ -9,9 +9,9 @@ base {
     archivesName = project.server_base_name
 }
 
-//loom {
-//    accessWidenerPath = file("src/main/resources/ninjautils.accesswidener")
-//}
+loom {
+    accessWidenerPath = file("src/main/resources/ninjautils.accesswidener")
+}
 
 repositories {
     maven { url "https://repo.erdbeerbaerlp.de/repository/maven-public/" }

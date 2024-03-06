@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "ninjautilsclient",
+  "version": "${version}",
+  "name": "NinjaUtils - Client",
+  "description": "A client side companion mod to my NinjaUtils server mod. Plus some other enhancements.",
+  "authors": [
+    "jmilthedude"
+  ],
+  "contact": {
+    "repo": "https://github.com/jmilthedude/NinjaUtilsClient"
+  },
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "net.ninjadev.ninjautilsclient.NinjaUtilsClient"
+    ]
+  },
+  "mixins": [
+    "ninjautilsclient.mixins.json"
+  ],
+  "accessWidener": "ninjautilsclient.accesswidener",
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

@@ -9,9 +9,9 @@ base {
     archivesName = project.client_base_name
 }
 
-//loom {
-//    accessWidenerPath = file("src/main/resources/ninjautilsclient.accesswidener")
-//}
+loom {
+    accessWidenerPath = file("src/main/resources/ninjautilsclient.accesswidener")
+}
 
 repositories {
 
