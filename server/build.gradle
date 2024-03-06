@@ -1,0 +1,36 @@
+plugins {
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.server_base_name
+}
+
+repositories {
+    maven { url "https://repo.erdbeerbaerlp.de/repository/maven-public/" }
+}
+
+dependencies {
+    implementation project(path: ":common", configuration: "namedElements")
+
+    compileOnly('de.erdbeerbaerlp:dcintegration.common:3.0.6')
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "minecraft_version", project.minecraft_version
+    inputs.property "loader_version", project.loader_version
+    filteringCharset "UTF-8"
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version,
+                "minecraft_version": project.minecraft_version,
+                "loader_version": project.loader_version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    source(project(':common').sourceSets.main.allSource)
+}

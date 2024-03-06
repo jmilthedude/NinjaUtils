@@ -1,9 +1,11 @@
 package net.ninjadev.ninjautils.common;
 
-public class NinjaUtilsCommon {
+import net.fabricmc.api.ModInitializer;
 
-    public static void init() {
+public class NinjaUtilsCommon implements ModInitializer {
+
+    @Override
+    public void onInitialize() {
 
     }
-
 }
