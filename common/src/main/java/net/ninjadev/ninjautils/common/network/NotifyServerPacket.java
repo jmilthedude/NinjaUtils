@@ -1,13 +1,13 @@
-package net.ninjadev.ninjautilsclient.network;
+package net.ninjadev.ninjautils.common.network;
 
 import net.fabricmc.fabric.api.networking.v1.FabricPacket;
 import net.fabricmc.fabric.api.networking.v1.PacketType;
 import net.minecraft.network.PacketByteBuf;
-import net.ninjadev.ninjautilsclient.NinjaUtilsClient;
+import net.ninjadev.ninjautils.common.util.SharedConstants;
 
 public class NotifyServerPacket implements FabricPacket {
 
-    public static final PacketType<NotifyServerPacket> TYPE = PacketType.create(NinjaUtilsClient.id("notify_server"), NotifyServerPacket::new);
+    public static final PacketType<NotifyServerPacket> TYPE = PacketType.create(SharedConstants.clientId("notify_server"), NotifyServerPacket::new);
 
     private final int test;
 
@@ -17,6 +17,10 @@ public class NotifyServerPacket implements FabricPacket {
 
     public NotifyServerPacket(int test) {
         this.test = test;
+    }
+
+    public int getTest() {
+        return test;
     }
 
     @Override

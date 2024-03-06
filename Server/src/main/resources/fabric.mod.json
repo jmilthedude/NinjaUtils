@@ -9,7 +9,6 @@
     "repo": "https://github.com/jmilthedude/NinjaUtils"
   },
   "license": "MIT",
-  "icon": "assets/ninjautils/icon.png",
   "environment": "server",
   "entrypoints": {
     "main": [

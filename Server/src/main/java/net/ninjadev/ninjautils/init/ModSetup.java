@@ -4,8 +4,8 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.server.MinecraftServer;
+import net.ninjadev.ninjautils.common.network.NotifyServerPacket;
 import net.ninjadev.ninjautils.feature.Feature;
-import net.ninjadev.ninjautils.network.NotifyServerPacket;
 
 public class ModSetup {
 
