@@ -6,11 +6,10 @@ import net.ninjadev.ninjautils.compat.DiscordIntegrationCompat;
 import net.ninjadev.ninjautils.init.ModCommands;
 import net.ninjadev.ninjautils.init.ModConfigs;
 import net.ninjadev.ninjautils.init.ModSetup;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import static net.ninjadev.ninjautils.common.util.SharedConstants.LOG;
 
 public class NinjaUtils implements ModInitializer {
-    public static final Logger LOG = LoggerFactory.getLogger(NinjaUtils.class);
 
     @Override
     public void onInitialize() {
