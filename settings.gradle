@@ -7,3 +7,5 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+rootProject.name = "NinjaUtils"
+include("common", "client", "server")
