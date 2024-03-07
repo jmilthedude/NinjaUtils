@@ -8,8 +8,7 @@ import net.ninjadev.ninjautils.common.data.PlayerSettingsData;
 import net.ninjadev.ninjautils.common.feature.Feature;
 import net.ninjadev.ninjautils.common.network.C2SNotifyPacket;
 import net.ninjadev.ninjautils.common.network.C2SSyncSettingsPacket;
-import net.ninjadev.ninjautils.feature.AntiFogFeature;
-import net.ninjadev.ninjautils.feature.FullBrightnessFeature;
+import net.ninjadev.ninjautils.event.InputEvents;
 import net.ninjadev.ninjautils.feature.InventorySortFeature;
 
 public class ModSetup {
@@ -18,7 +17,7 @@ public class ModSetup {
 
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> ModConfigs.register());
 
-        ClientTickEvents.START_CLIENT_TICK.register(client -> handleInput());
+        ClientTickEvents.START_CLIENT_TICK.register(client -> InputEvents.handleInput());
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> ModConfigs.FEATURES.features.stream().filter(Feature::isEnabled).forEach(Feature::onTick));
 
@@ -38,16 +37,5 @@ public class ModSetup {
             ModConfigs.FEATURES.save();
         });
 
-    }
-
-    private static void handleInput() {
-        if (ModKeybinds.toggleFogKey.wasPressed()) {
-            Feature feature = ModConfigs.FEATURES.getFeature(AntiFogFeature.NAME);
-            feature.setEnabled(!feature.isEnabled());
-        }
-        if (ModKeybinds.toggleFullbrightKey.wasPressed()) {
-            Feature feature = ModConfigs.FEATURES.getFeature(FullBrightnessFeature.NAME);
-            feature.setEnabled(!feature.isEnabled());
-        }
     }
 }

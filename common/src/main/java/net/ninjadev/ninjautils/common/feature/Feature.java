@@ -34,6 +34,9 @@ public abstract class Feature {
         } else {
             this.disable();
         }
+        if (this instanceof FeedbackFeature feedbackFeature) {
+            feedbackFeature.sendFeedback();
+        }
         return (T) this;
     }
 
