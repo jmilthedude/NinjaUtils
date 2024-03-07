@@ -3,10 +3,7 @@ package net.ninjadev.ninjautils;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.ninjadev.ninjautils.compat.DiscordIntegrationCompat;
-import net.ninjadev.ninjautils.init.ModCommands;
-import net.ninjadev.ninjautils.init.ModConfigs;
-import net.ninjadev.ninjautils.init.ModNetwork;
-import net.ninjadev.ninjautils.init.ModSetup;
+import net.ninjadev.ninjautils.init.*;
 
 import static net.ninjadev.ninjautils.common.util.SharedConstants.LOG;
 
@@ -19,6 +16,7 @@ public class NinjaUtils implements ModInitializer {
         ModCommands.init();
         ModSetup.registerLifecycleEvents();
         ModNetwork.register();
+        ModPlayerManager.registerEvents();
     }
 
     private static DiscordIntegrationCompat DISCORD;
