@@ -3,6 +3,7 @@ package net.ninjadev.ninjautils.init;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.ninjadev.ninjautils.common.network.C2SNotifyPacket;
 import net.ninjadev.ninjautils.common.network.C2SSortInventoryPacket;
+import net.ninjadev.ninjautils.common.network.C2SSyncSettingsPacket;
 import net.ninjadev.ninjautils.common.network.S2CNotifyPacket;
 import net.ninjadev.ninjautils.common.util.SharedConstants;
 import net.ninjadev.ninjautils.feature.InventorySortFeature;
@@ -20,6 +21,10 @@ public class ModNetwork {
         ServerPlayNetworking.registerGlobalReceiver(C2SSortInventoryPacket.TYPE, (packet, player, responseSender) -> {
             InventorySortFeature feature = ModConfigs.FEATURES.getFeature(InventorySortFeature.NAME);
             feature.sortInventory(player);
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(C2SSyncSettingsPacket.TYPE, (packet, player, responseSender) -> {
+            ModPlayerManager.updatePlayerSettings(player.getUuid(), packet.getPlayerSettings());
         });
 
     }
