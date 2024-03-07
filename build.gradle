@@ -1,5 +1,6 @@
 plugins {
     id 'fabric-loom' version '1.5-SNAPSHOT' apply(false)
+    id 'java'
 }
 
 version = project.mod_version
@@ -54,3 +55,14 @@ subprojects {
         }
     }
 }
+
+tasks.register('copyLibs', Copy).configure {
+    subprojects.forEach { p ->
+        from p.layout.buildDirectory.file("libs")
+        into "$rootDir/build/libs"
+        include 'NinjaUtils*.jar'
+    }
+
+}
+
+build.finalizedBy('copyLibs')
