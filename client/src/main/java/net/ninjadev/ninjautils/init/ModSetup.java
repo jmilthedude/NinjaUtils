@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.ninjadev.ninjautils.feature.AntiFogFeature;
 import net.ninjadev.ninjautils.common.feature.Feature;
-import net.ninjadev.ninjautils.common.network.NotifyServerPacket;
+import net.ninjadev.ninjautils.common.network.C2SNotifyPacket;
 import net.ninjadev.ninjautils.feature.FullBrightnessFeature;
 
 public class ModSetup {
@@ -21,7 +21,7 @@ public class ModSetup {
 
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
             if (client.player != null) {
-                ClientPlayNetworking.send(new NotifyServerPacket(client.player.getUuid()));
+                ClientPlayNetworking.send(new C2SNotifyPacket(client.player.getUuid()));
             }
         });
 

@@ -11,10 +11,12 @@ public class ModKeybinds {
 
     public static KeyBinding toggleFogKey;
     public static KeyBinding toggleFullbrightKey;
+    public static KeyBinding sortInventory;
 
     public static void register() {
         toggleFogKey = createKeyBinding("toggle_fog", GLFW.GLFW_KEY_END);
         toggleFullbrightKey = createKeyBinding("toggle_fullbright", GLFW.GLFW_KEY_MINUS);
+        sortInventory = createKeyBinding("sort_inventory", GLFW.GLFW_KEY_R);
     }
 
     private static KeyBinding createKeyBinding(String name) {

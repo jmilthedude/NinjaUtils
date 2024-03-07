@@ -7,17 +7,17 @@ import net.ninjadev.ninjautils.common.util.SharedConstants;
 
 import java.util.UUID;
 
-public class NotifyServerPacket implements FabricPacket {
+public class C2SNotifyPacket implements FabricPacket {
 
-    public static final PacketType<NotifyServerPacket> TYPE = PacketType.create(SharedConstants.clientId("notify_server"), NotifyServerPacket::new);
+    public static final PacketType<C2SNotifyPacket> TYPE = PacketType.create(SharedConstants.serverId("notify_server"), C2SNotifyPacket::new);
 
     private final UUID playerId;
 
-    public NotifyServerPacket(PacketByteBuf buf) {
+    public C2SNotifyPacket(PacketByteBuf buf) {
         this(buf.readUuid());
     }
 
-    public NotifyServerPacket(UUID playerId) {
+    public C2SNotifyPacket(UUID playerId) {
         this.playerId = playerId;
     }
 

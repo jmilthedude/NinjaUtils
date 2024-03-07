@@ -10,8 +10,10 @@ import net.minecraft.inventory.DoubleInventory;
 import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.collection.DefaultedList;
 import net.ninjadev.ninjautils.common.config.FeaturesConfig;
 import net.ninjadev.ninjautils.common.feature.Feature;
@@ -43,10 +45,25 @@ public class InventorySortFeature extends Feature {
         ModEvents.INVENTORY_CLICK.release(this);
     }
 
-    private void sortInventory(InventoryClickEvent.Data data) {
-        if (data.getSlotActionType() != SlotActionType.THROW) return;
-        if (data.getSlotActionType() == SlotActionType.THROW && data.getSlotIndex() != -999) return;
-        Inventory inventory = this.getInventory(data.getPlayer(), data.getSlots());
+    public void sortInventory(ServerPlayerEntity player) {
+        ScreenHandler currentScreenHandler = player.currentScreenHandler;
+        if (currentScreenHandler == null) return;
+        this.doSortInventory(player, currentScreenHandler.slots);
+    }
+
+    public void sortInventory(InventoryClickEvent.Data data) {
+        SlotActionType actionType = data.getSlotActionType();
+        int slotIndex = data.getSlotIndex();
+        PlayerEntity player = data.getPlayer();
+        DefaultedList<Slot> slots = data.getSlots();
+
+        if (actionType != SlotActionType.THROW) return;
+        if (slotIndex != -999) return;
+        this.doSortInventory(player, slots);
+    }
+
+    private void doSortInventory(PlayerEntity player, DefaultedList<Slot> slots) {
+        Inventory inventory = this.getInventory(player, slots);
         if (!isSortableInventory(inventory)) return;
 
         boolean isPlayerInventory = inventory instanceof PlayerInventory;
