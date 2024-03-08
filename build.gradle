@@ -3,9 +3,8 @@ plugins {
     id 'java'
 }
 
-version = project.mod_version
+version = project.minecraft_version + "-" +  project.client_mod_version
 group = project.maven_group
-
 
 repositories {
 }
@@ -25,19 +24,6 @@ subprojects {
 
         // Fabric API. This is technically optional, but you probably want it anyway.
         modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    }
-
-    processResources {
-        inputs.property "version", project.version
-        inputs.property "minecraft_version", project.minecraft_version
-        inputs.property "loader_version", project.loader_version
-        filteringCharset "UTF-8"
-
-        filesMatching("fabric.mod.json") {
-            expand "version": project.version,
-                    "minecraft_version": project.minecraft_version,
-                    "loader_version": project.loader_version
-        }
     }
 
     def targetJavaVersion = 17

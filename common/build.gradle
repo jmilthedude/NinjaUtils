@@ -1,6 +1,6 @@
 plugins {
 }
-version = project.mod_version
+version = project.client_mod_version
 group = project.maven_group
 
 repositories {
