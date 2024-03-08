@@ -9,8 +9,8 @@ public class ClientFeaturesConfig extends FeaturesConfig<ClientFeaturesConfig> {
 
     @Override
     protected void reset() {
-        features.add(new AntiFogFeature().setEnabled(true));
-        features.add(new FullBrightnessFeature().setEnabled(true));
+        features.add(new AntiFogFeature());
+        features.add(new FullBrightnessFeature());
         features.add(new InventorySortFeature().setEnabled(true));
     }
 

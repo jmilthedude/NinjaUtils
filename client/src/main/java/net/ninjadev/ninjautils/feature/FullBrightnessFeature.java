@@ -1,6 +1,7 @@
 package net.ninjadev.ninjautils.feature;
 
 
+import com.google.gson.annotations.Expose;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.GameOptions;
@@ -16,7 +17,7 @@ public class FullBrightnessFeature extends Feature implements FeedbackFeature {
 
     public static final String NAME = "fullbright";
 
-    private double initialGamma;
+    @Expose private double initialGamma;
 
     @Override
     public String getName() {
