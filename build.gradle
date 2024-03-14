@@ -51,4 +51,6 @@ tasks.register('copyLibs', Copy).configure {
 
 }
 
-build.finalizedBy('copyLibs')
+gradle.buildFinished {
+    copyLibs
+}
