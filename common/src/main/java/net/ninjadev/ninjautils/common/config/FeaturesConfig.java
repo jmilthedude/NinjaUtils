@@ -33,6 +33,7 @@ public abstract class FeaturesConfig<C extends FeaturesConfig<?>> extends Config
     @Override
     protected C validate(C config) {
         FeaturesConfig<C> fresh = this.get();
+        fresh.reset();
         for (Feature feature : fresh.features) {
             if (!config.hasFeature(feature)) {
                 config.addFeature(feature);

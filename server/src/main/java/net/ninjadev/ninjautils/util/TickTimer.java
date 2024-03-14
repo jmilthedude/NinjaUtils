@@ -1,9 +1,9 @@
 package net.ninjadev.ninjautils.util;
 
-public class Cooldown {
+public class TickTimer {
     private int ticksRemaining;
 
-    public Cooldown(int startingTicks) {
+    public TickTimer(int startingTicks) {
         this.ticksRemaining = startingTicks;
     }
 

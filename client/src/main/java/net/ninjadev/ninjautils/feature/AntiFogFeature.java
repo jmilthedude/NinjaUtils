@@ -30,6 +30,11 @@ public class AntiFogFeature extends Feature implements FeedbackFeature {
     }
 
     @Override
+    public boolean setEnabledByDefault() {
+        return false;
+    }
+
+    @Override
     public <C extends FeaturesConfig<?>> Optional<C> getConfig() {
         return (Optional<C>) Optional.ofNullable(ModConfigs.FEATURES);
     }

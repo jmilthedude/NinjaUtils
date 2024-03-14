@@ -9,19 +9,20 @@ public class ServerFeaturesConfig extends FeaturesConfig<ServerFeaturesConfig> {
 
     @Override
     protected void reset() {
-        features.add(new NameColorFeature().setEnabled(true));
-        features.add(new NetherPortalCalcFeature().setEnabled(true));
-        features.add(new InventorySortFeature().setEnabled(true));
-        features.add(new PlayerSleepFeature().setEnabled(true));
-        features.add(new FastXPFeature().setEnabled(true));
-        features.add(new DeathPointFeature(5).setEnabled(true));
-        features.add(new HarvestCropFeature().setEnabled(true));
-        features.add(new InventorySaveFeature().setEnabled(true));
-        features.add(new ShulkerDropsTwoFeature().setEnabled(true));
-        features.add(new SpawnDragonEggFeature().setEnabled(true));
-        features.add(new PeacefulPlayerFeature(List.of("jmilthedude", "player2")).setEnabled(true));
-        features.add(new DimensionSymbolFeature().setEnabled(true));
-        features.add(new RandomFlowersFeature().setEnabled(true));
+        features.add(new NameColorFeature().initEnabled());
+        features.add(new NetherPortalCalcFeature().initEnabled());
+        features.add(new InventorySortFeature().initEnabled());
+        features.add(new PlayerSleepFeature().initEnabled());
+        features.add(new FastXPFeature().initEnabled());
+        features.add(new DeathPointFeature(5).initEnabled());
+        features.add(new HarvestCropFeature().initEnabled());
+        features.add(new InventorySaveFeature().initEnabled());
+        features.add(new ShulkerDropsTwoFeature().initEnabled());
+        features.add(new SpawnDragonEggFeature().initEnabled());
+        features.add(new PeacefulPlayerFeature(List.of("jmilthedude", "player2")).initEnabled());
+        features.add(new DimensionSymbolFeature().initEnabled());
+        features.add(new RandomFlowersFeature().initEnabled());
+        features.add(new BeaconVisualizerFeature().initEnabled());
     }
 
 

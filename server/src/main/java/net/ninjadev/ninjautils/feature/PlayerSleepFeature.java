@@ -13,14 +13,14 @@ import net.ninjadev.ninjautils.common.feature.Feature;
 import net.ninjadev.ninjautils.compat.DiscordIntegrationCompat;
 import net.ninjadev.ninjautils.init.ModConfigs;
 import net.ninjadev.ninjautils.init.ModSetup;
-import net.ninjadev.ninjautils.util.Cooldown;
+import net.ninjadev.ninjautils.util.TickTimer;
 
 import java.util.*;
 
 public class PlayerSleepFeature extends Feature {
     public static final String NAME = "player_sleep";
 
-    private static final HashMap<UUID, Cooldown> COOLDOWNS = new HashMap<>();
+    private static final HashMap<UUID, TickTimer> COOLDOWNS = new HashMap<>();
 
     @Expose private List<String> sleepMessages = List.of(
             "is taking a little nappy.",
@@ -56,7 +56,7 @@ public class PlayerSleepFeature extends Feature {
 
                 if (COOLDOWNS.containsKey(player.getUuid())) return;
 
-                COOLDOWNS.put(player.getUuid(), new Cooldown(300));
+                COOLDOWNS.put(player.getUuid(), new TickTimer(300));
                 MutableText playerName = player.getDisplayName() == null ? player.getName().copy() : player.getDisplayName().copy();
                 MutableText text = playerName.append(Text.literal(" " + this.getSleepMessage(player)).formatted(Formatting.WHITE));
                 ModSetup.SERVER.getPlayerManager().broadcast(text.setStyle(text.getStyle().withItalic(true)), false);
@@ -71,7 +71,7 @@ public class PlayerSleepFeature extends Feature {
 
     @Override
     public void onTick() {
-        COOLDOWNS.values().forEach(Cooldown::update);
+        COOLDOWNS.values().forEach(TickTimer::update);
         COOLDOWNS.entrySet().removeIf(entrySet -> entrySet.getValue().isComplete());
     }
 

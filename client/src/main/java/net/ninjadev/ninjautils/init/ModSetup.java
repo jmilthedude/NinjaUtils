@@ -15,7 +15,10 @@ public class ModSetup {
 
     public static void registerLifecycleEvents() {
 
-        ClientLifecycleEvents.CLIENT_STARTED.register(client -> ModConfigs.register());
+        ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
+            ModConfigs.register();
+            ModFeatures.init();
+        });
 
         ClientTickEvents.START_CLIENT_TICK.register(client -> InputEvents.handleInput());
 
