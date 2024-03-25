@@ -66,6 +66,7 @@ public class InventorySortFeature extends Feature {
         Inventory inventory = this.getInventory(player, slots);
         if (!isSortableInventory(inventory)) return;
 
+        long time = System.currentTimeMillis();
         boolean isPlayerInventory = inventory instanceof PlayerInventory;
         int minSlot = isPlayerInventory ? 9 : 0;
         int maxSlot = isPlayerInventory ? 36 : inventory.size();
@@ -73,12 +74,13 @@ public class InventorySortFeature extends Feature {
         List<ItemStack> stacks = this.collectStacks(inventory, minSlot, maxSlot);
 
         stacks = combineStacks(stacks);
-        stacks.sort(ItemStackComparator::compare);
+        stacks.sort(ItemStackComparator::byItemGroup);
 
         for (int j = minSlot; j < maxSlot; j++) {
             int next = j - minSlot;
             inventory.setStack(j, next < stacks.size() ? stacks.get(next) : ItemStack.EMPTY);
         }
+        System.out.println("Time Taken: " + (System.currentTimeMillis() - time) + "ms");
     }
 
     private Inventory getInventory(PlayerEntity player, DefaultedList<Slot> slots) {
