@@ -4,6 +4,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.ShulkerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootTable;
@@ -39,7 +40,8 @@ public abstract class LivingEntityMixin {
         LivingEntity entity = (LivingEntity) (Object) this;
         if (!(entity instanceof ShulkerEntity)) return;
 
-        if (!ModConfigs.FEATURES.isEnabled(ShulkerDropsTwoFeature.NAME) || !(damageSource.getSource() instanceof ServerPlayerEntity)) return;
+        if (!ModConfigs.FEATURES.isEnabled(ShulkerDropsTwoFeature.NAME) || !(damageSource.getSource() instanceof ServerPlayerEntity))
+            return;
 
         ci.cancel();
 
@@ -63,6 +65,16 @@ public abstract class LivingEntityMixin {
             if (feature.getPlayers().contains(name)) {
                 cir.setReturnValue(false);
             }
+        }
+    }
+
+    @Inject(method = "dropXp", at = @At("HEAD"), cancellable = true)
+    public void onDropInventory(CallbackInfo ci) {
+        LivingEntity entity = (LivingEntity) (Object) this;
+        if (!(entity instanceof PlayerEntity player)) return;
+        PeacefulPlayerFeature feature = ModConfigs.FEATURES.getFeature(PeacefulPlayerFeature.NAME);
+        if (feature.isEnabled() && feature.getPlayers().contains(player.getNameForScoreboard())) {
+            ci.cancel();
         }
     }
 }

@@ -1,8 +1,10 @@
 package net.ninjadev.ninjautils.feature;
 
 import com.google.gson.annotations.Expose;
+import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.ninjadev.ninjautils.common.config.FeaturesConfig;
 import net.ninjadev.ninjautils.common.feature.Feature;
+import net.ninjadev.ninjautils.data.InventorySaveState;
 import net.ninjadev.ninjautils.init.ModConfigs;
 
 import java.util.ArrayList;
@@ -26,7 +28,12 @@ public class PeacefulPlayerFeature extends Feature {
 
     @Override
     public void onEnable() {
-
+        if (this.registered) return;
+        ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
+            if (!this.isEnabled()) return;
+            InventorySaveState.get().restore(newPlayer, 0);
+        });
+        this.registered = true;
     }
 
     @Override

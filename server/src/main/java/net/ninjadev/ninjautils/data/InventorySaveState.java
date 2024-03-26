@@ -21,7 +21,7 @@ public class InventorySaveState extends PersistentState {
     private final HashMap<UUID, List<InventoryEntry>> entries = new HashMap<>();
 
     public void addInventory(ServerPlayerEntity player) {
-        InventoryEntry entry = new InventoryEntry(System.currentTimeMillis()).applyInventory(player);
+        InventoryEntry entry = new InventoryEntry(System.currentTimeMillis(), player.totalExperience).applyInventory(player);
         this.addInventory(player.getUuid(), entry);
     }
 
@@ -53,7 +53,11 @@ public class InventorySaveState extends PersistentState {
             player.dropItem(stack, false, true);
             inventory.setStack(i, ItemStack.EMPTY);
         }
-        savedInventories.get(index).forEach(inventory::setStack);
+        InventoryEntry inventoryEntry = savedInventories.get(index);
+        player.setExperiencePoints(0);
+        player.setExperienceLevel(0);
+        player.addExperience(inventoryEntry.getExperience());
+        inventoryEntry.forEach(inventory::setStack);
     }
 
     @Override

@@ -14,13 +14,19 @@ import java.util.Optional;
 public class InventoryEntry extends HashMap<Integer, ItemStack> implements Comparable<InventoryEntry> {
 
     private final long timestamp;
+    private final int experience;
 
-    public InventoryEntry(long timestamp) {
+    public InventoryEntry(long timestamp, int experience) {
         this.timestamp = timestamp;
+        this.experience = experience;
     }
 
     public long getTimestamp() {
         return timestamp;
+    }
+
+    public int getExperience() {
+        return experience;
     }
 
     public int getItemCount() {
@@ -49,6 +55,7 @@ public class InventoryEntry extends HashMap<Integer, ItemStack> implements Compa
             inventoryList.add(compound);
         }
         nbt.putLong("timestamp", this.timestamp);
+        nbt.putLong("experience", this.experience);
         nbt.put("inventory", inventoryList);
         return nbt;
     }
@@ -56,7 +63,8 @@ public class InventoryEntry extends HashMap<Integer, ItemStack> implements Compa
     public static Optional<InventoryEntry> fromNbt(NbtCompound nbt) {
         if (!nbt.contains("inventory")) return Optional.empty();
         long timestamp = nbt.getLong("timestamp");
-        InventoryEntry entry = new InventoryEntry(timestamp);
+        int experience = nbt.getInt("experience");
+        InventoryEntry entry = new InventoryEntry(timestamp, experience);
         NbtList list = nbt.getList("inventory", NbtElement.COMPOUND_TYPE);
         list.stream().map(element -> (NbtCompound) element).forEach(compound -> {
             int slot = compound.getInt("slot");
