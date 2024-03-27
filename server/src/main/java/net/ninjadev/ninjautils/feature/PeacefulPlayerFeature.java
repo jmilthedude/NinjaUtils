@@ -30,7 +30,8 @@ public class PeacefulPlayerFeature extends Feature {
     public void onEnable() {
         if (this.registered) return;
         ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
-            if (!this.isEnabled()) return;
+            if (!this.isEnabled() || alive) return;
+            if (!this.getPlayers().contains(newPlayer.getNameForScoreboard())) return;
             InventorySaveState.get().restore(newPlayer, 0);
         });
         this.registered = true;
