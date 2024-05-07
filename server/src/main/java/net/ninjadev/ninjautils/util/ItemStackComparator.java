@@ -1,5 +1,6 @@
 package net.ninjadev.ninjautils.util;
 
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.ItemStack;
@@ -35,7 +36,7 @@ public class ItemStackComparator {
                 int indexOfOther = stacks.indexOf(stacks.stream().filter(itemStack -> itemStack.getItem() == other.getItem()).findFirst().orElse(ItemStack.EMPTY));
                 int compared = Integer.compare(indexOfStack, indexOfOther);
                 if (compared != 0) return compared;
-                if (stack.hasCustomName() || other.hasCustomName()) {
+                if (stack.get(DataComponentTypes.CUSTOM_NAME) != null || other.get(DataComponentTypes.CUSTOM_NAME) != null) {
                     String stackName = stack.getName().getString();
                     String otherName = other.getName().getString();
                     return stackName.compareTo(otherName);

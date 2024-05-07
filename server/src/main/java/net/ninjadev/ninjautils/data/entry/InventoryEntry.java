@@ -5,6 +5,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.jetbrains.annotations.NotNull;
 
@@ -50,7 +53,7 @@ public class InventoryEntry extends HashMap<Integer, ItemStack> implements Compa
             NbtCompound compound = new NbtCompound();
             compound.putInt("slot", entry.getKey());
             NbtCompound stackNbt = new NbtCompound();
-            entry.getValue().writeNbt(stackNbt);
+            entry.getValue().encode(DynamicRegistryManager.of(Registries.REGISTRIES));
             compound.put("stack", stackNbt);
             inventoryList.add(compound);
         }
@@ -60,7 +63,7 @@ public class InventoryEntry extends HashMap<Integer, ItemStack> implements Compa
         return nbt;
     }
 
-    public static Optional<InventoryEntry> fromNbt(NbtCompound nbt) {
+    public static Optional<InventoryEntry> fromNbt(RegistryWrapper.WrapperLookup registryLookup, NbtCompound nbt) {
         if (!nbt.contains("inventory")) return Optional.empty();
         long timestamp = nbt.getLong("timestamp");
         int experience = nbt.getInt("experience");
@@ -68,8 +71,7 @@ public class InventoryEntry extends HashMap<Integer, ItemStack> implements Compa
         NbtList list = nbt.getList("inventory", NbtElement.COMPOUND_TYPE);
         list.stream().map(element -> (NbtCompound) element).forEach(compound -> {
             int slot = compound.getInt("slot");
-            ItemStack stack = ItemStack.fromNbt(compound.getCompound("stack"));
-            entry.put(slot, stack);
+            ItemStack.fromNbt(registryLookup, compound.getCompound("stack")).ifPresent(stack -> entry.put(slot, stack));
         });
         return Optional.of(entry);
     }

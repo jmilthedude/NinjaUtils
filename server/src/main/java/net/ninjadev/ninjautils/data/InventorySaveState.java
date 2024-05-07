@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.PersistentState;
 import net.ninjadev.ninjautils.common.util.SharedConstants;
@@ -61,7 +62,7 @@ public class InventorySaveState extends PersistentState {
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound nbt) {
+    public NbtCompound writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         entries.forEach((uuid, inventory) -> {
             NbtList inventories = new NbtList();
             for (InventoryEntry inventoryEntry : inventory) {
@@ -72,12 +73,12 @@ public class InventorySaveState extends PersistentState {
         return nbt;
     }
 
-    private static InventorySaveState load(NbtCompound nbt) {
+    private static InventorySaveState load(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         InventorySaveState state = new InventorySaveState();
         for (String key : nbt.getKeys()) {
             NbtList inventories = nbt.getList(key, NbtElement.COMPOUND_TYPE);
             inventories.stream().map(element -> (NbtCompound) element).forEach(inventoryNbt -> {
-                InventoryEntry.fromNbt(inventoryNbt).ifPresent(value -> state.addInventory(UUID.fromString(key), value));
+                InventoryEntry.fromNbt(registryLookup, inventoryNbt).ifPresent(value -> state.addInventory(UUID.fromString(key), value));
             });
         }
         return state;

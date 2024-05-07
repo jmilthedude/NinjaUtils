@@ -66,7 +66,6 @@ public class InventorySortFeature extends Feature {
         Inventory inventory = this.getInventory(player, slots);
         if (!isSortableInventory(inventory)) return;
 
-        long time = System.currentTimeMillis();
         boolean isPlayerInventory = inventory instanceof PlayerInventory;
         int minSlot = isPlayerInventory ? 9 : 0;
         int maxSlot = isPlayerInventory ? 36 : inventory.size();
@@ -80,7 +79,6 @@ public class InventorySortFeature extends Feature {
             int next = j - minSlot;
             inventory.setStack(j, next < stacks.size() ? stacks.get(next) : ItemStack.EMPTY);
         }
-        System.out.println("Time Taken: " + (System.currentTimeMillis() - time) + "ms");
     }
 
     private Inventory getInventory(PlayerEntity player, DefaultedList<Slot> slots) {
@@ -138,7 +136,7 @@ public class InventorySortFeature extends Feature {
     private int getIndexOfSimilar(List<ItemStack> items, ItemStack input) {
         for (int i = 0; i < items.size(); i++) {
             ItemStack item = items.get(i);
-            if (ItemStack.canCombine(item, input)) {
+            if (ItemStack.areItemsAndComponentsEqual(item, input)) {
                 if (item.getCount() < item.getMaxCount()) {
                     return i;
                 }

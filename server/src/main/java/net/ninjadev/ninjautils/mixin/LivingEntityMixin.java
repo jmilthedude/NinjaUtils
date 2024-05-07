@@ -9,8 +9,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContextParameterSet;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
 import net.ninjadev.ninjautils.feature.PeacefulPlayerFeature;
 import net.ninjadev.ninjautils.feature.ShulkerDropsTwoFeature;
 import net.ninjadev.ninjautils.init.ModConfigs;
@@ -36,7 +36,7 @@ public abstract class LivingEntityMixin {
             cancellable = true,
             locals = LocalCapture.CAPTURE_FAILHARD
     )
-    public void shulkerDrops(DamageSource damageSource, boolean causedByPlayer, CallbackInfo ci, Identifier identifier, LootTable lootTable, LootContextParameterSet.Builder builder, LootContextParameterSet context) {
+    public void shulkerDrops(DamageSource damageSource, boolean causedByPlayer, CallbackInfo ci, RegistryKey<?> registryKey, LootTable lootTable, LootContextParameterSet.Builder builder, LootContextParameterSet context) {
         LivingEntity entity = (LivingEntity) (Object) this;
         if (!(entity instanceof ShulkerEntity)) return;
 

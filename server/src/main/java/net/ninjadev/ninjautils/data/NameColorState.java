@@ -1,6 +1,7 @@
 package net.ninjadev.ninjautils.data;
 
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.PersistentState;
 import net.ninjadev.ninjautils.common.util.SharedConstants;
@@ -35,7 +36,7 @@ public class NameColorState extends PersistentState {
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound nbt) {
+    public NbtCompound writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         entries.forEach((uuid, color) -> {
             NbtCompound colorNbt = new NbtCompound();
             colorNbt.putInt("color", color.getRGB());
@@ -44,7 +45,7 @@ public class NameColorState extends PersistentState {
         return nbt;
     }
 
-    private static NameColorState load(NbtCompound nbt) {
+    private static NameColorState load(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         NameColorState state = new NameColorState();
         for (String key : nbt.getKeys()) {
             NbtCompound colorNbt = nbt.getCompound(key);

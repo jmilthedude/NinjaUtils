@@ -108,7 +108,7 @@ public class BeaconVisualizerFeature extends Feature {
 
         World world = player.getWorld();
         BlockPos pos = data.getHit().getBlockPos();
-        timers.put(player.getUuid(), new TickTimer(300));
+        timers.put(player.getUuid(), new TickTimer(3600));
         VisualizerData newData = particles.merge(player.getUuid(), new VisualizerData(pos, world, Level.ONE), (old, value) -> {
             if (!pos.equals(old.beaconPos)) return value;
             return new VisualizerData(old.beaconPos, old.world, old.level.getNext());
