@@ -7,9 +7,9 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(Entity.class)
 public interface EntityAccessor {
 
-    @Accessor("netherPortalTime")
+    @Accessor("portalCooldown")
     int getNetherPortalTime();
 
-    @Accessor("netherPortalTime")
+    @Accessor("portalCooldown")
     void setNetherPortalTime(int time);
 }

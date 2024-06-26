@@ -11,10 +11,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class EntityMixin {
 
 
-    @Inject(method = "tickPortal", at = @At("HEAD"))
+    @Inject(method = "tickPortalCooldown", at = @At("HEAD"))
     public void getPortalTime(CallbackInfo ci) {
         Entity e = (Entity)(Object)this;
         if(!(e instanceof PlayerEntity player)) return;
-        if(player.isSneaking()) ((EntityAccessor)e).setNetherPortalTime(player.getMaxNetherPortalTime() + 1);
+        if(player.isSneaking()) ((EntityAccessor)e).setNetherPortalTime(player.getPortalCooldown() + 1);
     }
 }
