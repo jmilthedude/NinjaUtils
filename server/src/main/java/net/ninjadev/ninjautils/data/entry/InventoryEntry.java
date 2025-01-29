@@ -52,8 +52,7 @@ public class InventoryEntry extends HashMap<Integer, ItemStack> implements Compa
             if (entry.getValue().isEmpty()) continue;
             NbtCompound compound = new NbtCompound();
             compound.putInt("slot", entry.getKey());
-            NbtCompound stackNbt = new NbtCompound();
-            entry.getValue().encode(DynamicRegistryManager.of(Registries.REGISTRIES));
+            NbtElement stackNbt = entry.getValue().toNbt(DynamicRegistryManager.of(Registries.REGISTRIES));
             compound.put("stack", stackNbt);
             inventoryList.add(compound);
         }

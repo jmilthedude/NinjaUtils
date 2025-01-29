@@ -88,7 +88,7 @@ public class NetherPortalCalcFeature extends Feature {
                     if (!isChunkLoaded) continue;
                     double x = pos.getX() + 0.5d;
                     double z = pos.getZ() + 0.5d;
-                    for (int y = world.getBottomY(); y < world.getTopY(); y++) {
+                    for (int y = world.getBottomY(); y < world.getTopYInclusive(); y++) {
                         world.spawnParticles(ParticleTypes.PORTAL, x, y, z, 1, 0, Math.random(), 0, 0.005d);
                     }
                 }
@@ -115,7 +115,7 @@ public class NetherPortalCalcFeature extends Feature {
         timers.put(player.getUuid(), new AtomicLong(3600));
         particles.put(player.getUuid(), new Pair<>(oppositeWorld, opposite));
         String worldName = WordUtils.capitalizeFully(Objects.requireNonNull(oppositeWorldKey).getValue().getPath().replace("_", " "));
-        player.sendMessage(Text.literal(String.format("%s Portal Position: x%s, y%s, z%s", worldName, opposite.getX(), opposite.getY(), opposite.getZ())));
+        player.sendMessage(Text.literal(String.format("%s Portal Position: x%s, y%s, z%s", worldName, opposite.getX(), opposite.getY(), opposite.getZ())), false);
     }
 
     private RegistryKey<World> getOppositeWorldKey(World world) {

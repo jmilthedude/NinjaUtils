@@ -43,12 +43,12 @@ public class DeathPointState extends PersistentState {
     public void sendEntries(PlayerEntity player) {
         UUID playerId = player.getUuid();
         if (!entries.containsKey(playerId)) {
-            player.sendMessage(Text.literal("You have no recent DeathPoints to display."));
+            player.sendMessage(Text.literal("You have no recent DeathPoints to display."), false);
         }
         List<Entry> entryList = this.entries.get(playerId);
         entryList.sort(Entry::compareTo);
-        player.sendMessage(Text.literal("=== Your DeathPoints by Latest ==="));
-        entryList.forEach(entry -> player.sendMessage(entry.getMessage(true)));
+        player.sendMessage(Text.literal("=== Your DeathPoints by Latest ==="), false);
+        entryList.forEach(entry -> player.sendMessage(entry.getMessage(true), false));
     }
 
     @Override

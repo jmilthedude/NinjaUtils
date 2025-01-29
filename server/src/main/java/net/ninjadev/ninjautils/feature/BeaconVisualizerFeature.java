@@ -90,10 +90,10 @@ public class BeaconVisualizerFeature extends Feature {
                     int currentIndex = nextEdge.indexOf(blockPos);
                     for (int y = player.getBlockY() - 1; y <= player.getBlockY() + 2; y++) {
                         boolean isCornerPos = currentIndex == 0 || currentIndex == nextEdge.size() - 1;
-                        world.spawnParticles(player, isCornerPos ? ParticleTypes.FLAME : ParticleTypes.SOUL_FIRE_FLAME, true, blockPos.getX() + 0.5d, y + 0.5d, blockPos.getZ() + 0.5d, 1, 0, .25, 0, 0);
+                        world.spawnParticles(player, isCornerPos ? ParticleTypes.FLAME : ParticleTypes.SOUL_FIRE_FLAME, true, true, blockPos.getX() + 0.5d, y + 0.5d, blockPos.getZ() + 0.5d, 1, 0, .25, 0, 0);
                     }
                 }
-                world.spawnParticles(player, ParticleTypes.HAPPY_VILLAGER, true, beaconX, beaconY, beaconZ, 5, 0, .25, 0, 0);
+                world.spawnParticles(player, ParticleTypes.HAPPY_VILLAGER,true, true, beaconX, beaconY, beaconZ, 5, 0, .25, 0, 0);
             }
         }
     }
