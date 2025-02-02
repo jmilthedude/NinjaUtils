@@ -45,9 +45,8 @@ tasks.register('copyLibs', Copy).configure {
         into "$rootDir/build/libs"
         include 'NinjaUtils*.jar'
     }
-
 }
 
-gradle.buildFinished {
-    copyLibs
+tasks.named("build").configure {
+    finalizedBy("copyLibs")
 }
