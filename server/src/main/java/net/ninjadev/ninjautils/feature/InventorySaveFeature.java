@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.ninjadev.ninjautils.common.config.FeaturesConfig;
 import net.ninjadev.ninjautils.common.feature.Feature;
+import net.ninjadev.ninjautils.common.util.SharedConstants;
 import net.ninjadev.ninjautils.data.InventorySaveState;
 import net.ninjadev.ninjautils.init.ModConfigs;
 
@@ -23,8 +24,9 @@ public class InventorySaveFeature extends Feature {
         ServerLivingEntityEvents.ALLOW_DEATH.register((entity, damageSource, damage) -> {
             if (!this.isEnabled()) return true;
             if (!(entity instanceof ServerPlayerEntity player)) return true;
-
+            SharedConstants.LOG.info("Saving inventory for dying player: {}", player.getName());
             InventorySaveState.get().addInventory(player);
+            SharedConstants.LOG.info("Inventory saved.");
             return true;
         });
         this.registered = true;
