@@ -12,10 +12,10 @@ public class SharedConstants {
     public static final Logger LOG = LoggerFactory.getLogger("NinjaUtils");
 
     public static Identifier clientId(String path) {
-        return new Identifier(CLIENT_MOD_ID, path);
+        return Identifier.of(CLIENT_MOD_ID, path);
     }
 
     public static Identifier serverId(String path) {
-        return new Identifier(SERVER_MOD_ID, path);
+        return Identifier.of(SERVER_MOD_ID, path);
     }
 }

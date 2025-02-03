@@ -1,17 +1,19 @@
 package net.ninjadev.ninjautils.common.network;
 
-import net.fabricmc.fabric.api.networking.v1.FabricPacket;
-import net.fabricmc.fabric.api.networking.v1.PacketType;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.packet.CustomPayload;
 import net.ninjadev.ninjautils.common.util.SharedConstants;
 
-public class S2CNotifyPacket implements FabricPacket {
+public class S2CNotifyPacket implements CustomPayload {
 
-    public static final PacketType<S2CNotifyPacket> TYPE = PacketType.create(SharedConstants.serverId("notify_client"), S2CNotifyPacket::new);
+    public static final Id<S2CNotifyPacket> PACKET_ID = new Id<>(SharedConstants.serverId("notify_client"));
+
+    public static final PacketCodec<RegistryByteBuf, S2CNotifyPacket> PACKET_CODEC = PacketCodec.of(S2CNotifyPacket::write, S2CNotifyPacket::new);
 
     private final boolean acknowledge;
 
-    public S2CNotifyPacket(PacketByteBuf buf) {
+    public S2CNotifyPacket(RegistryByteBuf buf) {
         this(buf.readBoolean());
     }
 
@@ -23,13 +25,12 @@ public class S2CNotifyPacket implements FabricPacket {
         return acknowledge;
     }
 
-    @Override
-    public void write(PacketByteBuf buf) {
+    public void write(RegistryByteBuf buf) {
         buf.writeBoolean(this.acknowledge);
     }
 
     @Override
-    public PacketType<?> getType() {
-        return TYPE;
+    public Id<? extends CustomPayload> getId() {
+        return PACKET_ID;
     }
 }

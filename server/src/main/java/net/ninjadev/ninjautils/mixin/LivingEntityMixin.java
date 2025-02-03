@@ -1,5 +1,6 @@
 package net.ninjadev.ninjautils.mixin;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -8,9 +9,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootTable;
-import net.minecraft.loot.context.LootContextParameterSet;
+import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
+import net.minecraft.server.world.ServerWorld;
 import net.ninjadev.ninjautils.feature.PeacefulPlayerFeature;
 import net.ninjadev.ninjautils.feature.ShulkerDropsTwoFeature;
 import net.ninjadev.ninjautils.init.ModConfigs;
@@ -20,7 +21,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
@@ -31,12 +31,11 @@ public abstract class LivingEntityMixin {
     @Inject(method = "dropLoot",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/loot/LootTable;generateLoot(Lnet/minecraft/loot/context/LootContextParameterSet;JLjava/util/function/Consumer;)V",
+                    target = "Lnet/minecraft/loot/LootTable;generateLoot(Lnet/minecraft/loot/context/LootWorldContext;JLjava/util/function/Consumer;)V",
                     shift = At.Shift.BEFORE),
-            cancellable = true,
-            locals = LocalCapture.CAPTURE_FAILHARD
+            cancellable = true
     )
-    public void shulkerDrops(DamageSource damageSource, boolean causedByPlayer, CallbackInfo ci, Identifier identifier, LootTable lootTable, LootContextParameterSet.Builder builder, LootContextParameterSet context) {
+    public void shulkerDrops(ServerWorld world, DamageSource damageSource, boolean causedByPlayer, CallbackInfo ci, @Local LootTable lootTable, @Local LootWorldContext context) {
         LivingEntity entity = (LivingEntity) (Object) this;
         if (!(entity instanceof ShulkerEntity)) return;
 
@@ -47,12 +46,12 @@ public abstract class LivingEntityMixin {
 
         ObjectArrayList<ItemStack> loot = lootTable.generateLoot(context, this.getLootTableSeed());
         ItemStack shells = new ItemStack(Items.SHULKER_SHELL, 2);
-        entity.dropStack(shells);
+        entity.dropStack(world, shells);
         for (ItemStack itemStack : loot) {
             if (itemStack.getItem() == Items.SHULKER_SHELL) {
                 continue;
             }
-            entity.dropStack(itemStack);
+            entity.dropStack(world, itemStack);
         }
     }
 
@@ -68,7 +67,7 @@ public abstract class LivingEntityMixin {
         }
     }
 
-    @Inject(method = "dropXp", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "dropExperience", at = @At("HEAD"), cancellable = true)
     public void onDropInventory(CallbackInfo ci) {
         LivingEntity entity = (LivingEntity) (Object) this;
         if (!(entity instanceof PlayerEntity player)) return;

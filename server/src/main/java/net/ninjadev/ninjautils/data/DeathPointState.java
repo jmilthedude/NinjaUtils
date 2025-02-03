@@ -6,6 +6,7 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -33,7 +34,7 @@ public class DeathPointState extends PersistentState {
         entryList.sort(Entry::compareTo);
         DeathPointFeature deathpointFeature = ModConfigs.FEATURES.getFeature(DeathPointFeature.NAME);
         if (entryList.size() >= deathpointFeature.getMaxDeathpoints()) {
-            entryList.remove(0);
+            entryList.removeFirst();
         }
         entryList.add(entry);
         this.markDirty();
@@ -42,16 +43,16 @@ public class DeathPointState extends PersistentState {
     public void sendEntries(PlayerEntity player) {
         UUID playerId = player.getUuid();
         if (!entries.containsKey(playerId)) {
-            player.sendMessage(Text.literal("You have no recent DeathPoints to display."));
+            player.sendMessage(Text.literal("You have no recent DeathPoints to display."), false);
         }
         List<Entry> entryList = this.entries.get(playerId);
         entryList.sort(Entry::compareTo);
-        player.sendMessage(Text.literal("=== Your DeathPoints by Latest ==="));
-        entryList.forEach(entry -> player.sendMessage(entry.getMessage(true)));
+        player.sendMessage(Text.literal("=== Your DeathPoints by Latest ==="), false);
+        entryList.forEach(entry -> player.sendMessage(entry.getMessage(true), false));
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound nbt) {
+    public NbtCompound writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         entries.forEach(((uuid, entryList) -> {
             NbtList list = new NbtList();
             entryList.stream().map(Entry::writeNbt).forEach(list::add);
@@ -60,7 +61,7 @@ public class DeathPointState extends PersistentState {
         return nbt;
     }
 
-    private static DeathPointState load(NbtCompound nbt) {
+    private static DeathPointState load(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         DeathPointState state = new DeathPointState();
         for (String key : nbt.getKeys()) {
             NbtList list = nbt.getList(key, NbtElement.COMPOUND_TYPE);
@@ -122,7 +123,7 @@ public class DeathPointState extends PersistentState {
         }
 
         public static Entry fromNbt(NbtCompound nbt) {
-            BlockPos pos = NbtHelper.toBlockPos(nbt.getCompound("pos"));
+            BlockPos pos = NbtHelper.toBlockPos(nbt, "pos").orElse(BlockPos.ORIGIN);
             Identifier worldId = Identifier.tryParse(nbt.getString("worldId"));
             long timeStamp = nbt.getLong("timeStamp");
             return new Entry(pos, worldId, timeStamp);
