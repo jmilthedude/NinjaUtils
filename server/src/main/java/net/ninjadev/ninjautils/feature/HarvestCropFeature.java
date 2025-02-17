@@ -1,6 +1,7 @@
 package net.ninjadev.ninjautils.feature;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CropBlock;
 import net.minecraft.entity.EquipmentSlot;
@@ -43,7 +44,7 @@ public class HarvestCropFeature extends Feature {
     public void onEnable() {
         ModEvents.BLOCK_USE.register(this, data -> {
             if (!this.canHarvest(data)) return;
-            this.harvestBlock((ServerPlayerEntity) data.getPlayer(), data.getPos(), (CropBlock) data.getState().getBlock());
+            this.harvestBlock((ServerPlayerEntity) data.getPlayer(), data.getPos(), data.getState());
         });
 
     }
@@ -59,19 +60,22 @@ public class HarvestCropFeature extends Feature {
         return cropBlock.getAge(data.getState()) >= cropBlock.getMaxAge();
     }
 
-    private void harvestBlock(ServerPlayerEntity player, BlockPos pos, CropBlock block) {
+    private void harvestBlock(ServerPlayerEntity player, BlockPos pos, BlockState state) {
         if (player.interactionManager.tryBreakBlock(pos)) {
-            this.postBreak(player, pos, block);
+            this.postBreak(player, pos, state);
         }
     }
 
-    private void postBreak(ServerPlayerEntity player, BlockPos pos, CropBlock block) {
-        player.swingHand(Hand.MAIN_HAND, true);
-        World world = player.getWorld();
-        world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, block.asItem().getBreakSound(), SoundCategory.BLOCKS, 0.75f, 1.0f);
-        world.setBlockState(pos, block.withAge(0));
-        player.getMainHandStack().damage(1, player, EquipmentSlot.MAINHAND);
-        this.decrementSeedItem(pos, world);
+    private void postBreak(ServerPlayerEntity player, BlockPos pos, BlockState state) {
+        if(state.getBlock() instanceof CropBlock block) {
+            player.swingHand(Hand.MAIN_HAND, true);
+            World world = player.getWorld();
+            world.getBlockState(pos).getSoundGroup();
+            world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, state.getSoundGroup().getBreakSound(), SoundCategory.BLOCKS, 0.75f, 1.0f);
+            world.setBlockState(pos, block.withAge(0));
+            player.getMainHandStack().damage(1, player, EquipmentSlot.MAINHAND);
+            this.decrementSeedItem(pos, world);
+        }
     }
 
     private void decrementSeedItem(BlockPos pos, World world) {
