@@ -9,6 +9,7 @@
     "EntityAccessor",
     "EntityMixin",
     "LivingEntityMixin",
+    "NetherPortalBlockMixin",
     "PlayerEntityAccessor",
     "PlayerEntityMixin",
     "SaveAllCommandMixin",

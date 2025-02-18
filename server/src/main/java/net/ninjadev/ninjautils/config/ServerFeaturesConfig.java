@@ -23,6 +23,7 @@ public class ServerFeaturesConfig extends FeaturesConfig<ServerFeaturesConfig> {
         features.add(new DimensionSymbolFeature().initEnabled());
         features.add(new RandomFlowersFeature().initEnabled());
         features.add(new BeaconVisualizerFeature().initEnabled());
+        features.add(new NetherPortalCooldownFeature().initEnabled());
     }
 
 
