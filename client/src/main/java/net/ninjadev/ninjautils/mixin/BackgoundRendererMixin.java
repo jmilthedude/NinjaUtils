@@ -1,9 +1,6 @@
 package net.ninjadev.ninjautils.mixin;
 
-import net.minecraft.client.render.BackgroundRenderer;
-import org.spongepowered.asm.mixin.Mixin;
-
-@Mixin(BackgroundRenderer.class)
+//@Mixin(BackgroundRenderer.class)
 public class BackgoundRendererMixin {
 
 //    @Inject(method = "applyFog",

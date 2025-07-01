@@ -1,18 +1,16 @@
 package net.ninjadev.ninjautils.data;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtHelper;
-import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.PersistentState;
+import net.minecraft.world.PersistentStateType;
 import net.minecraft.world.World;
 import net.ninjadev.ninjautils.common.util.SharedConstants;
 import net.ninjadev.ninjautils.feature.DeathPointFeature;
@@ -28,6 +26,27 @@ public class DeathPointState extends PersistentState {
     protected static final String DATA_NAME = SharedConstants.SERVER_MOD_ID + "_deathpoints";
 
     private final HashMap<UUID, List<Entry>> entries = new HashMap<>();
+
+    private static final Codec<DeathPointState> CODEC = Codec.unboundedMap(
+            Codec.STRING,
+            Entry.CODEC.listOf()
+    ).xmap(
+            entryMap -> {
+                DeathPointState state = new DeathPointState();
+                entryMap.forEach((key, entryList) -> {
+                    UUID uuid = UUID.fromString(key);
+                    state.entries.put(uuid, new ArrayList<>(entryList));
+                });
+                return state;
+            },
+            state -> {
+                HashMap<String, List<Entry>> entryMap = new HashMap<>();
+                state.entries.forEach((uuid, entryList) -> entryMap.put(uuid.toString(), new ArrayList<>(entryList)));
+                return entryMap;
+            }
+    );
+
+    public static final PersistentStateType<DeathPointState> TYPE = new PersistentStateType<>(DATA_NAME, DeathPointState::new, CODEC, null);
 
     public void addEntry(UUID playerId, Entry entry) {
         List<Entry> entryList = this.entries.computeIfAbsent(playerId, id -> new ArrayList<>());
@@ -51,36 +70,23 @@ public class DeathPointState extends PersistentState {
         entryList.forEach(entry -> player.sendMessage(entry.getMessage(true), false));
     }
 
-    @Override
-    public NbtCompound writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        entries.forEach(((uuid, entryList) -> {
-            NbtList list = new NbtList();
-            entryList.stream().map(Entry::writeNbt).forEach(list::add);
-            nbt.put(uuid.toString(), list);
-        }));
-        return nbt;
-    }
-
-    private static DeathPointState load(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        DeathPointState state = new DeathPointState();
-        for (String key : nbt.getKeys()) {
-            NbtList list = nbt.getList(key, NbtElement.COMPOUND_TYPE);
-            list.stream().map(element -> (NbtCompound) element).forEach(nbtCompound -> state.addEntry(UUID.fromString(key), Entry.fromNbt(nbtCompound)));
-        }
-        return state;
-    }
-
     public static DeathPointState get() {
         return ModSetup.SERVER
                 .getOverworld()
                 .getPersistentStateManager()
-                .getOrCreate(new PersistentState.Type<>(DeathPointState::new, DeathPointState::load, null), DATA_NAME);
+                .getOrCreate(TYPE);
     }
 
     public static class Entry implements Comparable<Entry> {
         private final BlockPos pos;
         private final Identifier worldId;
         private final long timeStamp;
+
+        public static final Codec<Entry> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                BlockPos.CODEC.fieldOf("pos").forGetter(Entry::getPos),
+                Identifier.CODEC.fieldOf("worldId").forGetter(Entry::getWorldId),
+                Codec.LONG.fieldOf("timeStamp").forGetter(Entry::getTimeStamp)
+        ).apply(instance, Entry::new));
 
         public Entry(BlockPos pos, Identifier worldId, long timeStamp) {
             this.pos = pos;
@@ -112,21 +118,6 @@ public class DeathPointState extends PersistentState {
 
         public long getTimeStamp() {
             return timeStamp;
-        }
-
-        public NbtCompound writeNbt() {
-            NbtCompound nbt = new NbtCompound();
-            nbt.put("pos", NbtHelper.fromBlockPos(this.pos));
-            nbt.putString("worldId", this.worldId.toString());
-            nbt.putLong("timeStamp", this.timeStamp);
-            return nbt;
-        }
-
-        public static Entry fromNbt(NbtCompound nbt) {
-            BlockPos pos = NbtHelper.toBlockPos(nbt, "pos").orElse(BlockPos.ORIGIN);
-            Identifier worldId = Identifier.tryParse(nbt.getString("worldId"));
-            long timeStamp = nbt.getLong("timeStamp");
-            return new Entry(pos, worldId, timeStamp);
         }
 
         @Override

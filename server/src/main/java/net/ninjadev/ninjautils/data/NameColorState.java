@@ -1,9 +1,10 @@
 package net.ninjadev.ninjautils.data;
 
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.PersistentState;
+import net.minecraft.world.PersistentStateType;
 import net.ninjadev.ninjautils.common.util.SharedConstants;
 import net.ninjadev.ninjautils.init.ModSetup;
 
@@ -15,6 +16,30 @@ public class NameColorState extends PersistentState {
     protected static final String DATA_NAME = SharedConstants.SERVER_MOD_ID + "_nameColor";
 
     private final HashMap<UUID, Color> entries = new HashMap<>();
+
+    private static final Codec<Color> COLOR_CODEC = RecordCodecBuilder.create(colorInstance ->
+            colorInstance.group(
+                    Codec.INT.fieldOf("color").forGetter(Color::getRGB)
+            ).apply(colorInstance, Color::new)
+    );
+
+    public static final Codec<NameColorState> CODEC = Codec.unboundedMap(
+            Codec.STRING,
+            COLOR_CODEC
+    ).xmap(
+            colorMap -> {
+                NameColorState state = new NameColorState();
+                colorMap.forEach((key, color) -> state.setPlayerColor(UUID.fromString(key), color));
+                return state;
+            },
+            state -> {
+                HashMap<String, Color> colorMap = new HashMap<>();
+                state.entries.forEach((uuid, color) -> colorMap.put(uuid.toString(), color));
+                return colorMap;
+            }
+    );
+
+    private static final PersistentStateType<NameColorState> TYPE = new PersistentStateType<>(DATA_NAME, NameColorState::new, CODEC, null);
 
     public void setPlayerColor(ServerPlayerEntity player, Color color) {
         this.setPlayerColor(player.getUuid(), color);
@@ -35,29 +60,10 @@ public class NameColorState extends PersistentState {
         return this.getPlayerColor(player.getUuid());
     }
 
-    @Override
-    public NbtCompound writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        entries.forEach((uuid, color) -> {
-            NbtCompound colorNbt = new NbtCompound();
-            colorNbt.putInt("color", color.getRGB());
-            nbt.put(uuid.toString(), colorNbt);
-        });
-        return nbt;
-    }
-
-    private static NameColorState load(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        NameColorState state = new NameColorState();
-        for (String key : nbt.getKeys()) {
-            NbtCompound colorNbt = nbt.getCompound(key);
-            state.setPlayerColor(UUID.fromString(key), new Color(colorNbt.getInt("color")));
-        }
-        return state;
-    }
-
     public static NameColorState get() {
         return ModSetup.SERVER
                 .getOverworld()
                 .getPersistentStateManager()
-                .getOrCreate(new PersistentState.Type<>(NameColorState::new, NameColorState::load, null), DATA_NAME);
+                .getOrCreate(TYPE);
     }
 }

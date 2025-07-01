@@ -1,13 +1,11 @@
 package net.ninjadev.ninjautils.data;
 
+import com.mojang.serialization.Codec;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtList;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.PersistentState;
+import net.minecraft.world.PersistentStateType;
 import net.ninjadev.ninjautils.common.util.SharedConstants;
 import net.ninjadev.ninjautils.data.entry.InventoryEntry;
 import net.ninjadev.ninjautils.init.ModSetup;
@@ -19,7 +17,31 @@ import java.util.UUID;
 
 public class InventorySaveState extends PersistentState {
 
+    protected static final String DATA_NAME = SharedConstants.SERVER_MOD_ID + "_inventorySave";
+
     private final HashMap<UUID, List<InventoryEntry>> entries = new HashMap<>();
+
+    public static final Codec<InventorySaveState> CODEC = Codec.unboundedMap(
+            Codec.STRING,
+            InventoryEntry.CODEC.listOf()
+    ).xmap(
+            entryMap -> {
+                InventorySaveState state = new InventorySaveState();
+                entryMap.forEach((key, entryList) -> {
+                    UUID uuid = UUID.fromString(key);
+                    // Convert immutable list into mutable ArrayList at deserialization time
+                    state.entries.put(uuid, new ArrayList<>(entryList));
+                });
+                return state;
+            },
+            state -> {
+                HashMap<String, List<InventoryEntry>> entryMap = new HashMap<>();
+                state.entries.forEach((uuid, entryList) -> entryMap.put(uuid.toString(), entryList));
+                return entryMap;
+            }
+    );
+
+    public static final PersistentStateType<InventorySaveState> TYPE = new PersistentStateType<>(DATA_NAME, InventorySaveState::new, CODEC, null);
 
     public void addInventory(ServerPlayerEntity player) {
         InventoryEntry entry = new InventoryEntry(System.currentTimeMillis(), player.totalExperience).applyInventory(player);
@@ -63,44 +85,13 @@ public class InventorySaveState extends PersistentState {
         SharedConstants.LOG.info("Inventory restored.");
     }
 
-    @Override
-    public NbtCompound writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        entries.forEach((uuid, inventory) -> {
-            SharedConstants.LOG.info("Writing inventories for player: {}", uuid);
-            NbtList inventories = new NbtList();
-            for (InventoryEntry inventoryEntry : inventory) {
-                NbtCompound inventoryNbt = inventoryEntry.writeNbt(new NbtCompound(), ModSetup.SERVER.getRegistryManager());
-                if (inventoryNbt != null) {
-                    inventories.add(inventoryNbt);
-                }
-            }
-            nbt.put(uuid.toString(), inventories);
-            SharedConstants.LOG.info("Wrote inventories successfully.");
-        });
-        return nbt;
-    }
-
-    private static InventorySaveState load(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        InventorySaveState state = new InventorySaveState();
-        for (String key : nbt.getKeys()) {
-            SharedConstants.LOG.info("Loading inventories for player: {}", UUID.fromString(key));
-            NbtList inventories = nbt.getList(key, NbtElement.COMPOUND_TYPE);
-            inventories.stream().map(element -> (NbtCompound) element).forEach(inventoryNbt -> {
-                InventoryEntry.fromNbt(registryLookup, inventoryNbt).ifPresent(value -> state.addInventory(UUID.fromString(key), value));
-            });
-            SharedConstants.LOG.info("Loaded inventory successfully");
-        }
-        return state;
-    }
-
     public static InventorySaveState get() {
         return ModSetup.SERVER
                 .getOverworld()
                 .getPersistentStateManager()
-                .getOrCreate(new PersistentState.Type<>(InventorySaveState::new, InventorySaveState::load, null), DATA_NAME);
+                .getOrCreate(TYPE);
     }
 
-    protected static final String DATA_NAME = SharedConstants.SERVER_MOD_ID + "_inventorySave";
 
 
 }
