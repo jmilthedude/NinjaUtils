@@ -37,7 +37,7 @@ public class TextUtils {
     public static Text getPlayerNameStyled(ServerPlayerEntity player, boolean withDimension) {
         MutableText name = Text.literal("");
         if (withDimension && ModConfigs.FEATURES.isEnabled(DimensionSymbolFeature.NAME)) {
-            Color dimensionColor = TextUtils.getWorldColor(player.getWorld().getRegistryKey());
+            Color dimensionColor = TextUtils.getWorldColor(player.getEntityWorld().getRegistryKey());
             name.append(Text.literal("■ ").withColor(dimensionColor.getRGB()));
         }
         Color color = Color.WHITE;

@@ -106,10 +106,10 @@ public class NetherPortalCalcFeature extends Feature {
 
         data.setCancelled(true);
 
-        World world = player.getWorld();
+        World world = player.getEntityWorld();
         BlockPos opposite = this.getOppositePosition(world, data.getHit().getBlockPos());
         RegistryKey<World> oppositeWorldKey = this.getOppositeWorldKey(world);
-        World oppositeWorld = Objects.requireNonNull(player.getServer()).getWorld(oppositeWorldKey);
+        World oppositeWorld = Objects.requireNonNull(((ServerPlayerEntity)player).getEntityWorld().getServer()).getWorld(oppositeWorldKey);
         if (oppositeWorld == null) return;
 
         timers.put(player.getUuid(), new AtomicLong(3600));

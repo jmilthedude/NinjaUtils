@@ -17,7 +17,7 @@ public abstract class ServerWorldMixin {
     public void updatePlayerList(ServerPlayerEntity player, CallbackInfo ci) {
         if (!ModConfigs.FEATURES.isEnabled(DimensionSymbolFeature.NAME)) return;
         DimensionSymbolFeature feature = ModConfigs.FEATURES.getFeature(DimensionSymbolFeature.NAME);
-        Identifier worldId = player.getWorld().getRegistryKey().getValue();
+        Identifier worldId = player.getEntityWorld().getRegistryKey().getValue();
         feature.updatePlayer(player, worldId);
     }
 }

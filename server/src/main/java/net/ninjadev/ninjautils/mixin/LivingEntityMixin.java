@@ -1,7 +1,5 @@
 package net.ninjadev.ninjautils.mixin;
 
-import com.llamalad7.mixinextras.sugar.Local;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.ShulkerEntity;
@@ -9,7 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootTable;
-import net.minecraft.loot.context.LootWorldContext;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.ninjadev.ninjautils.feature.PeacefulPlayerFeature;
@@ -28,14 +26,14 @@ public abstract class LivingEntityMixin {
     @Shadow
     public abstract long getLootTableSeed();
 
-    @Inject(method = "dropLoot",
+    @Inject(method = "dropLoot(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;ZLnet/minecraft/registry/RegistryKey;)V",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/loot/LootTable;generateLoot(Lnet/minecraft/loot/context/LootWorldContext;JLjava/util/function/Consumer;)V",
+                    target = "Lnet/minecraft/entity/LivingEntity;generateLoot(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;ZLnet/minecraft/registry/RegistryKey;Ljava/util/function/Consumer;)V",
                     shift = At.Shift.BEFORE),
             cancellable = true
     )
-    public void shulkerDrops(ServerWorld world, DamageSource damageSource, boolean causedByPlayer, CallbackInfo ci, @Local LootTable lootTable, @Local LootWorldContext context) {
+    public void shulkerDrops(ServerWorld world, DamageSource damageSource, boolean causedByPlayer, RegistryKey<LootTable> lootTableKey, CallbackInfo ci) {
         LivingEntity entity = (LivingEntity) (Object) this;
         if (!(entity instanceof ShulkerEntity)) return;
 
@@ -44,15 +42,8 @@ public abstract class LivingEntityMixin {
 
         ci.cancel();
 
-        ObjectArrayList<ItemStack> loot = lootTable.generateLoot(context, this.getLootTableSeed());
         ItemStack shells = new ItemStack(Items.SHULKER_SHELL, 2);
         entity.dropStack(world, shells);
-        for (ItemStack itemStack : loot) {
-            if (itemStack.getItem() == Items.SHULKER_SHELL) {
-                continue;
-            }
-            entity.dropStack(world, itemStack);
-        }
     }
 
     @Inject(method = "canTarget(Lnet/minecraft/entity/LivingEntity;)Z", at = @At("HEAD"), cancellable = true)

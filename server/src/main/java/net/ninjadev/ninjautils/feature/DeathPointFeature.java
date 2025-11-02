@@ -41,7 +41,7 @@ public class DeathPointFeature extends Feature {
         ServerLivingEntityEvents.AFTER_DEATH.register((entity, damageSource) -> {
             if (!(entity instanceof ServerPlayerEntity player)) return;
             BlockPos pos = player.getBlockPos();
-            RegistryKey<World> key = player.getWorld().getRegistryKey();
+            RegistryKey<World> key = player.getEntityWorld().getRegistryKey();
             long timeStamp = System.currentTimeMillis();
 
             DeathPointState.Entry entry = new DeathPointState.Entry(pos, key.getValue(), timeStamp);

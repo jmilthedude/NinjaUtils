@@ -69,7 +69,7 @@ public class HarvestCropFeature extends Feature {
     private void postBreak(ServerPlayerEntity player, BlockPos pos, BlockState state) {
         if(state.getBlock() instanceof CropBlock block) {
             player.swingHand(Hand.MAIN_HAND, true);
-            World world = player.getWorld();
+            World world = player.getEntityWorld();
             world.getBlockState(pos).getSoundGroup();
             world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, state.getSoundGroup().getBreakSound(), SoundCategory.BLOCKS, 0.75f, 1.0f);
             world.setBlockState(pos, block.withAge(0));
