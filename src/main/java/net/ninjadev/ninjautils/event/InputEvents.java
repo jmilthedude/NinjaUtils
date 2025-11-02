@@ -1,7 +1,7 @@
 package net.ninjadev.ninjautils.event;
 
-import net.ninjadev.ninjautils.feature.client.AntiFogFeature;
 import net.ninjadev.ninjautils.feature.Feature;
+import net.ninjadev.ninjautils.feature.client.AntiFogFeature;
 import net.ninjadev.ninjautils.feature.client.FullBrightnessFeature;
 import net.ninjadev.ninjautils.init.client.ModKeybinds;
 import net.ninjadev.ninjautils.init.server.ServerConfigs;

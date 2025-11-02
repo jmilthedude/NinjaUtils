@@ -9,7 +9,7 @@ import net.minecraft.text.Text;
 import net.ninjadev.ninjautils.config.FeaturesConfig;
 import net.ninjadev.ninjautils.feature.Feature;
 import net.ninjadev.ninjautils.feature.FeedbackFeature;
-import net.ninjadev.ninjautils.init.server.ServerConfigs;
+import net.ninjadev.ninjautils.init.client.ClientConfigs;
 
 import java.util.Optional;
 
@@ -47,7 +47,7 @@ public class FullBrightnessFeature extends Feature implements FeedbackFeature {
 
     @Override
     public <C extends FeaturesConfig<?>> Optional<C> getConfig() {
-        return (Optional<C>) Optional.ofNullable(ServerConfigs.FEATURES);
+        return (Optional<C>) Optional.ofNullable(ClientConfigs.FEATURES);
     }
 
     @Override

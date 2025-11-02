@@ -3,7 +3,7 @@ package net.ninjadev.ninjautils;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.ninjadev.ninjautils.compat.DiscordIntegrationCompat;
-import net.ninjadev.ninjautils.init.*;
+import net.ninjadev.ninjautils.init.ModPlayerManager;
 import net.ninjadev.ninjautils.init.server.ModCommands;
 import net.ninjadev.ninjautils.init.server.ServerConfigs;
 import net.ninjadev.ninjautils.init.server.ServerNetwork;
