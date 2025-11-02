@@ -1,0 +1,29 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.ninjadev.ninjautils.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "AbstractBlockStateMixin",
+    "EnderDragonFightMixin",
+    "EntityAccessor",
+    "EntityMixin",
+    "LivingEntityMixin",
+    "NetherPortalBlockMixin",
+    "PlayerEntityAccessor",
+    "PlayerEntityMixin",
+    "SaveAllCommandMixin",
+    "ScreenHandlerMixin",
+    "ServerPlayerEntityMixin",
+    "ServerPlayerInteractionManagerMixin",
+    "ServerWorldMixin",
+    "SimpleBlockFeatureMixin"
+  ],
+  "client": [
+    "ScreenMixin",
+    "SimpleOptionMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

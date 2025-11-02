@@ -8,4 +8,3 @@ pluginManagement {
     }
 }
 rootProject.name = "NinjaUtils"
-include("common", "client", "server")

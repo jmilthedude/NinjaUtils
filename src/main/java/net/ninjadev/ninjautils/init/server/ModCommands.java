@@ -1,0 +1,20 @@
+package net.ninjadev.ninjautils.init.server;
+
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.ninjadev.ninjautils.command.*;
+
+public class ModCommands {
+
+    public static void init() {
+        register(new NameColorCommand());
+        register(new DeathPointCommand());
+        register(new RestoreInventoryCommand());
+        register(new SleepMessageCommand());
+        register(new PeacefulPlayerCommand());
+        register(new EntitiesCommand());
+    }
+
+    private static <T extends Command> void register(T command) {
+        CommandRegistrationCallback.EVENT.register(((dispatcher, registryAccess, environment) -> command.register(dispatcher)));
+    }
+}

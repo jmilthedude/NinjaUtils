@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "ninjautils",
+  "version": "${version}",
+  "name": "NinjaUtils",
+  "environment": "*",
+  "entrypoints": {
+    "main": [ "net.ninjadev.ninjautils.NinjaUtils" ],
+    "client": [ "net.ninjadev.ninjautils.client.NinjaUtilsClient" ]
+  },
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": ">=1.21.6",
+    "fabric": "*"
+  }
+}
