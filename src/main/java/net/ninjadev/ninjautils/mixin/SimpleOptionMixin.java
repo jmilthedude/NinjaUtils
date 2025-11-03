@@ -16,7 +16,7 @@ public class SimpleOptionMixin<T> {
     @Shadow @Final
     Text text;
 
-    @Shadow public T value;
+    @Shadow T value;
 
     @Inject(method = "setValue", at = @At("HEAD"), cancellable = true)
     public void forceSetValue(T value, CallbackInfo ci) {

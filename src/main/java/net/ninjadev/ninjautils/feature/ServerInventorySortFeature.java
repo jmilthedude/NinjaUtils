@@ -1,4 +1,4 @@
-package net.ninjadev.ninjautils.feature.server;
+package net.ninjadev.ninjautils.feature;
 
 import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
@@ -17,7 +17,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.collection.DefaultedList;
 import net.ninjadev.ninjautils.config.FeaturesConfig;
 import net.ninjadev.ninjautils.event.impl.InventoryClickEvent;
-import net.ninjadev.ninjautils.feature.Feature;
 import net.ninjadev.ninjautils.init.ModEvents;
 import net.ninjadev.ninjautils.init.server.ServerConfigs;
 import net.ninjadev.ninjautils.util.ItemStackComparator;

@@ -5,9 +5,16 @@
   "name": "NinjaUtils",
   "environment": "*",
   "entrypoints": {
-    "main": [ "net.ninjadev.ninjautils.NinjaUtils" ],
-    "client": [ "net.ninjadev.ninjautils.client.NinjaUtilsClient" ]
+    "main": [
+      "net.ninjadev.ninjautils.NinjaUtils"
+    ],
+    "client": [
+      "net.ninjadev.ninjautils.client.NinjaUtilsClient"
+    ]
   },
+  "mixins": [
+    "ninjautils.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=${loader_version}",
     "minecraft": ">=1.21.6",

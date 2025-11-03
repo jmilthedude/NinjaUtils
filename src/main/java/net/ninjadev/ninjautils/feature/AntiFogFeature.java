@@ -1,23 +1,16 @@
-package net.ninjadev.ninjautils.feature.client;
+package net.ninjadev.ninjautils.feature;
 
-
-import com.google.gson.annotations.Expose;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 import net.ninjadev.ninjautils.config.FeaturesConfig;
-import net.ninjadev.ninjautils.feature.Feature;
-import net.ninjadev.ninjautils.feature.FeedbackFeature;
 import net.ninjadev.ninjautils.init.client.ClientConfigs;
 
 import java.util.Optional;
 
-public class FullBrightnessFeature extends Feature implements FeedbackFeature {
+public class AntiFogFeature extends Feature implements FeedbackFeature {
 
-    public static final String NAME = "fullbright";
-
-    @Expose private double initialGamma;
+    public static final String NAME = "anti_fog";
 
     @Override
     public String getName() {
@@ -26,18 +19,12 @@ public class FullBrightnessFeature extends Feature implements FeedbackFeature {
 
     @Override
     public void onEnable() {
-        GameOptions options = MinecraftClient.getInstance().options;
-        double gamma = options.getGamma().getValue();
-        if (gamma < 0) gamma = 1.0d;
-        this.initialGamma = gamma;
-        double max = 15d;
-        options.getGamma().setValue(max);
+
     }
 
     @Override
     public void onDisable() {
-        GameOptions options = MinecraftClient.getInstance().options;
-        options.getGamma().setValue(this.initialGamma);
+
     }
 
     @Override

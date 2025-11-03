@@ -4,7 +4,7 @@ import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonFight;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import net.ninjadev.ninjautils.feature.server.SpawnDragonEggFeature;
+import net.ninjadev.ninjautils.feature.SpawnDragonEggFeature;
 import net.ninjadev.ninjautils.init.server.ServerConfigs;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;

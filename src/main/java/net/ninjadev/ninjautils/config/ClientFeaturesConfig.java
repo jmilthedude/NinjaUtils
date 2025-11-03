@@ -1,8 +1,8 @@
 package net.ninjadev.ninjautils.config;
 
-import net.ninjadev.ninjautils.feature.client.AntiFogFeature;
-import net.ninjadev.ninjautils.feature.client.ClientInventorySortFeature;
-import net.ninjadev.ninjautils.feature.client.FullBrightnessFeature;
+import net.ninjadev.ninjautils.feature.AntiFogFeature;
+import net.ninjadev.ninjautils.feature.ClientInventorySortFeature;
+import net.ninjadev.ninjautils.feature.FullBrightnessFeature;
 
 public class ClientFeaturesConfig extends FeaturesConfig<ClientFeaturesConfig> {
 
@@ -13,9 +13,9 @@ public class ClientFeaturesConfig extends FeaturesConfig<ClientFeaturesConfig> {
 
     @Override
     protected void reset() {
-        features.add(new AntiFogFeature().initEnabled());
-        features.add(new FullBrightnessFeature().initEnabled());
-        features.add(new ClientInventorySortFeature().initEnabled());
+        this.addFeature(new AntiFogFeature().initEnabled());
+        this.addFeature(new FullBrightnessFeature().initEnabled());
+        this.addFeature(new ClientInventorySortFeature().initEnabled());
     }
 
     @Override

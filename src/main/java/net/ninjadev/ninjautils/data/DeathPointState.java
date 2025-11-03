@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.PersistentStateType;
 import net.minecraft.world.World;
-import net.ninjadev.ninjautils.feature.server.DeathPointFeature;
+import net.ninjadev.ninjautils.feature.DeathPointFeature;
 import net.ninjadev.ninjautils.init.server.ServerConfigs;
 import net.ninjadev.ninjautils.init.server.ServerSetup;
 import net.ninjadev.ninjautils.util.Constants;

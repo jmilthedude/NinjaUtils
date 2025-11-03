@@ -6,7 +6,7 @@ import net.ninjadev.ninjautils.feature.Feature;
 public class ServerFeatures {
 
     public static void init() {
-        for (Feature feature : ServerConfigs.FEATURES.features) {
+        for (Feature feature : ServerConfigs.FEATURES.features.values()) {
             if (feature.isEnabled()) {
                 feature.onEnable();
             }

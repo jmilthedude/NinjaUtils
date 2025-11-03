@@ -7,8 +7,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 import net.ninjadev.ninjautils.data.NameColorState;
-import net.ninjadev.ninjautils.feature.server.DimensionSymbolFeature;
-import net.ninjadev.ninjautils.feature.server.NameColorFeature;
+import net.ninjadev.ninjautils.feature.DimensionSymbolFeature;
+import net.ninjadev.ninjautils.feature.NameColorFeature;
 import net.ninjadev.ninjautils.init.server.ServerConfigs;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 

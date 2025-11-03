@@ -3,7 +3,7 @@ package net.ninjadev.ninjautils.mixin;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
-import net.ninjadev.ninjautils.feature.server.DimensionSymbolFeature;
+import net.ninjadev.ninjautils.feature.DimensionSymbolFeature;
 import net.ninjadev.ninjautils.init.server.ServerConfigs;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

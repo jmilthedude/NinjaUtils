@@ -5,7 +5,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.input.KeyInput;
 import net.ninjadev.ninjautils.client.NinjaUtilsClient;
-import net.ninjadev.ninjautils.feature.client.ClientInventorySortFeature;
+import net.ninjadev.ninjautils.feature.ClientInventorySortFeature;
 import net.ninjadev.ninjautils.init.client.ClientConfigs;
 import net.ninjadev.ninjautils.init.client.ModKeybinds;
 import net.ninjadev.ninjautils.network.C2SSortInventoryPacket;

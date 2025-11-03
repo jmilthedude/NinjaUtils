@@ -3,7 +3,7 @@ package net.ninjadev.ninjautils.init.server;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.ninjadev.ninjautils.feature.server.ServerInventorySortFeature;
+import net.ninjadev.ninjautils.feature.ServerInventorySortFeature;
 import net.ninjadev.ninjautils.init.ModPlayerManager;
 import net.ninjadev.ninjautils.network.C2SNotifyPacket;
 import net.ninjadev.ninjautils.network.C2SSortInventoryPacket;
@@ -30,6 +30,7 @@ public class ServerNetwork {
         });
         ServerPlayNetworking.registerGlobalReceiver(C2SSortInventoryPacket.PACKET_ID, (payload, context) -> {
             ServerInventorySortFeature feature = ServerConfigs.FEATURES.getFeature(ServerInventorySortFeature.NAME);
+            if(feature == null || !feature.isEnabled()) return;
             feature.sortInventory(context.player());
         });
         ServerPlayNetworking.registerGlobalReceiver(C2SSyncSettingsPacket.PACKET_ID, (payload, context) -> {

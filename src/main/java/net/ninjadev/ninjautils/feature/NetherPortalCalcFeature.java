@@ -1,4 +1,4 @@
-package net.ninjadev.ninjautils.feature.server;
+package net.ninjadev.ninjautils.feature;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,7 +15,6 @@ import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
 import net.ninjadev.ninjautils.config.FeaturesConfig;
 import net.ninjadev.ninjautils.event.impl.BlockUseEvent;
-import net.ninjadev.ninjautils.feature.Feature;
 import net.ninjadev.ninjautils.init.ModEvents;
 import net.ninjadev.ninjautils.init.server.ServerConfigs;
 import net.ninjadev.ninjautils.init.server.ServerSetup;

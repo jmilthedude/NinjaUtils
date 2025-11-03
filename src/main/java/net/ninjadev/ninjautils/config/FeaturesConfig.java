@@ -3,33 +3,28 @@ package net.ninjadev.ninjautils.config;
 import com.google.gson.annotations.Expose;
 import net.ninjadev.ninjautils.feature.Feature;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public abstract class FeaturesConfig<C extends FeaturesConfig<?>> extends Config<C> implements Supplier<FeaturesConfig<C>> {
 
     @Expose
-    public List<Feature> features = new ArrayList<>();
+    public Map<String, Feature> features = new HashMap<>();
 
     public boolean isEnabled(String name) {
-        for (Feature feature : this.features) {
-            if (feature.getName().equalsIgnoreCase(name) && feature.isEnabled()) {
-                return true;
-            }
-        }
-        return false;
+        return this.features.containsKey(name) && this.features.get(name).isEnabled();
     }
 
     public <T extends Feature> T getFeature(String name) {
-        return (T) features.stream().filter(feature -> feature.getName().equalsIgnoreCase(name)).findFirst().orElseThrow();
+        return (T) this.features.get(name);
     }
 
     @Override
     protected C validate(C config) {
         FeaturesConfig<C> fresh = this.get();
         fresh.reset();
-        for (Feature feature : fresh.features) {
+        for (Feature feature : fresh.features.values()) {
             if (!config.hasFeature(feature)) {
                 config.addFeature(feature);
             }
@@ -38,11 +33,11 @@ public abstract class FeaturesConfig<C extends FeaturesConfig<?>> extends Config
     }
 
     public void addFeature(Feature feature) {
-        this.features.add(feature);
+        this.features.put(feature.getName(), feature);
         this.markDirty();
     }
 
     public boolean hasFeature(Feature feature) {
-        return this.features.stream().anyMatch(other -> feature.getName().equalsIgnoreCase(other.getName()));
+        return this.features.containsKey(feature.getName());
     }
 }

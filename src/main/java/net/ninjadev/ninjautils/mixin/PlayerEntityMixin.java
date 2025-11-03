@@ -7,7 +7,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 import net.ninjadev.ninjautils.event.impl.PlayerEntityCollisionEvent;
-import net.ninjadev.ninjautils.feature.server.PeacefulPlayerFeature;
+import net.ninjadev.ninjautils.feature.PeacefulPlayerFeature;
 import net.ninjadev.ninjautils.init.ModEvents;
 import net.ninjadev.ninjautils.init.server.ServerConfigs;
 import net.ninjadev.ninjautils.util.TextUtils;

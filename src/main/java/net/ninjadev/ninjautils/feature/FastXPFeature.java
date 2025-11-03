@@ -1,11 +1,10 @@
-package net.ninjadev.ninjautils.feature.server;
+package net.ninjadev.ninjautils.feature;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.ninjadev.ninjautils.config.FeaturesConfig;
 import net.ninjadev.ninjautils.event.impl.PlayerEntityCollisionEvent;
-import net.ninjadev.ninjautils.feature.Feature;
 import net.ninjadev.ninjautils.init.ModEvents;
 import net.ninjadev.ninjautils.init.server.ServerConfigs;
 import net.ninjadev.ninjautils.mixin.PlayerEntityAccessor;

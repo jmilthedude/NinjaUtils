@@ -6,7 +6,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
-import net.ninjadev.ninjautils.feature.server.PlayerSleepFeature;
+import net.ninjadev.ninjautils.feature.PlayerSleepFeature;
 import net.ninjadev.ninjautils.init.server.ServerConfigs;
 
 import static net.minecraft.server.command.CommandManager.argument;

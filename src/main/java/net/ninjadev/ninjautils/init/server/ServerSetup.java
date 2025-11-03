@@ -17,13 +17,7 @@ public class ServerSetup {
             ModEvents.releaseAll();
             ServerConfigs.saveAll();
         });
-        ServerTickEvents.END_SERVER_TICK.register(server -> {
-            for (Feature feature : ServerConfigs.FEATURES.features) {
-                if (feature.isEnabled()) {
-                    feature.onTick();
-                }
-            }
-        });
+        ServerTickEvents.END_SERVER_TICK.register(server -> ServerConfigs.FEATURES.features.values().stream().filter(Feature::isEnabled).forEach(Feature::onTick));
         ServerLifecycleEvents.BEFORE_SAVE.register((server, flush, force) -> ServerConfigs.saveAll());
     }
 }

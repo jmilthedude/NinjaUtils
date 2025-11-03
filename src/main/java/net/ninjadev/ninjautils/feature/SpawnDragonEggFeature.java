@@ -1,4 +1,4 @@
-package net.ninjadev.ninjautils.feature.server;
+package net.ninjadev.ninjautils.feature;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
@@ -7,7 +7,6 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.EndPortalFeature;
 import net.ninjadev.ninjautils.config.FeaturesConfig;
-import net.ninjadev.ninjautils.feature.Feature;
 import net.ninjadev.ninjautils.init.server.ServerConfigs;
 
 import java.util.Optional;

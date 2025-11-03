@@ -1,10 +1,9 @@
-package net.ninjadev.ninjautils.feature.server;
+package net.ninjadev.ninjautils.feature;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.ninjadev.ninjautils.config.FeaturesConfig;
 import net.ninjadev.ninjautils.data.InventorySaveState;
-import net.ninjadev.ninjautils.feature.Feature;
 import net.ninjadev.ninjautils.init.server.ServerConfigs;
 import net.ninjadev.ninjautils.util.Constants;
 

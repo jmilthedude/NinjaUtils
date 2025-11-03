@@ -8,7 +8,7 @@ import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import net.ninjadev.ninjautils.feature.server.PeacefulPlayerFeature;
+import net.ninjadev.ninjautils.feature.PeacefulPlayerFeature;
 import net.ninjadev.ninjautils.init.server.ServerConfigs;
 
 import static net.minecraft.server.command.CommandManager.argument;

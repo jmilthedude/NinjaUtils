@@ -11,7 +11,6 @@ public class FeatureAdapter implements JsonSerializer<Feature>, JsonDeserializer
     @Override
     public JsonElement serialize(Feature feature, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject output = new JsonObject();
-        output.add("name", new JsonPrimitive(feature.getName()));
         output.add("type", new JsonPrimitive(feature.getClass().getSimpleName()));
         output.add("properties", context.serialize(feature, feature.getClass()));
         return output;
@@ -20,13 +19,14 @@ public class FeatureAdapter implements JsonSerializer<Feature>, JsonDeserializer
     @Override
     public Feature deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
-        String name = jsonObject.get("name").getAsString();
         String type = jsonObject.get("type").getAsString();
         JsonElement properties = jsonObject.get("properties");
         try {
-            return context.deserialize(properties, Class.forName("net.ninjadev.ninjautils.feature." + type));
+            Feature feature = context.deserialize(properties, Class.forName("net.ninjadev.ninjautils.feature." + type));
+            Constants.LOG.info("Loaded Feature: {}, enabled={}", feature.getName(), feature.isEnabled());
+            return feature;
         } catch (ClassNotFoundException ex) {
-            Constants.LOG.error("Unable to deserialize Feature: {}", name);
+            Constants.LOG.error("Unable to deserialize Feature: {}", type);
         }
         return null;
     }

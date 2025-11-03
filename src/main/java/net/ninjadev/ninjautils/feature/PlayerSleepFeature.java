@@ -1,4 +1,4 @@
-package net.ninjadev.ninjautils.feature.server;
+package net.ninjadev.ninjautils.feature;
 
 import com.google.gson.annotations.Expose;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
@@ -10,7 +10,6 @@ import net.minecraft.util.Formatting;
 import net.ninjadev.ninjautils.NinjaUtils;
 import net.ninjadev.ninjautils.compat.DiscordIntegrationCompat;
 import net.ninjadev.ninjautils.config.FeaturesConfig;
-import net.ninjadev.ninjautils.feature.Feature;
 import net.ninjadev.ninjautils.init.server.ServerConfigs;
 import net.ninjadev.ninjautils.init.server.ServerSetup;
 import net.ninjadev.ninjautils.util.TickTimer;

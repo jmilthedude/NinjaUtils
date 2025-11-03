@@ -8,7 +8,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.ninjadev.ninjautils.data.PlayerSettingsData;
 import net.ninjadev.ninjautils.event.InputEvents;
 import net.ninjadev.ninjautils.feature.Feature;
-import net.ninjadev.ninjautils.feature.client.ClientInventorySortFeature;
+import net.ninjadev.ninjautils.feature.ClientInventorySortFeature;
 import net.ninjadev.ninjautils.init.client.ClientConfigs;
 import net.ninjadev.ninjautils.init.client.ClientFeatures;
 import net.ninjadev.ninjautils.init.client.ModKeybinds;
@@ -38,7 +38,7 @@ public class NinjaUtilsClient implements ClientModInitializer {
 
         ClientTickEvents.START_CLIENT_TICK.register(client -> InputEvents.handleInput());
 
-        ClientTickEvents.END_CLIENT_TICK.register(client -> ClientConfigs.FEATURES.features.stream().filter(Feature::isEnabled).forEach(Feature::onTick));
+        ClientTickEvents.END_CLIENT_TICK.register(client -> ClientConfigs.FEATURES.features.values().stream().filter(Feature::isEnabled).forEach(Feature::onTick));
 
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
             if (client.player != null) {

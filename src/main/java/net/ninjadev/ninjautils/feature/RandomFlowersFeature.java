@@ -1,4 +1,4 @@
-package net.ninjadev.ninjautils.feature.server;
+package net.ninjadev.ninjautils.feature;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -9,7 +9,6 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 import net.ninjadev.ninjautils.config.FeaturesConfig;
-import net.ninjadev.ninjautils.feature.Feature;
 import net.ninjadev.ninjautils.init.ModEvents;
 import net.ninjadev.ninjautils.init.server.ServerConfigs;
 

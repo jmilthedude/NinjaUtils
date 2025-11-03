@@ -40,6 +40,7 @@ public abstract class Feature {
         return this.enabled;
     }
 
+    @SuppressWarnings("unchecked")
     public <T extends Feature> T setEnabled(boolean enabled) {
         if (enabled) {
             this.enable();
@@ -52,6 +53,7 @@ public abstract class Feature {
         return (T) this;
     }
 
+    @SuppressWarnings("unchecked")
     public  <T extends Feature> T initEnabled() {
         this.enabled = this.setEnabledByDefault();
         this.getConfig().ifPresent(Config::markDirty);

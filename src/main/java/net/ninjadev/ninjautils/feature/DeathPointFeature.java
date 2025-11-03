@@ -1,4 +1,4 @@
-package net.ninjadev.ninjautils.feature.server;
+package net.ninjadev.ninjautils.feature;
 
 import com.google.gson.annotations.Expose;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
@@ -9,7 +9,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.ninjadev.ninjautils.config.FeaturesConfig;
 import net.ninjadev.ninjautils.data.DeathPointState;
-import net.ninjadev.ninjautils.feature.Feature;
 import net.ninjadev.ninjautils.init.server.ServerConfigs;
 
 import java.util.Optional;

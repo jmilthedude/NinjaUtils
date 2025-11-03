@@ -1,8 +1,7 @@
-package net.ninjadev.ninjautils.feature.client;
+package net.ninjadev.ninjautils.feature;
 
 import com.google.gson.annotations.Expose;
 import net.ninjadev.ninjautils.config.FeaturesConfig;
-import net.ninjadev.ninjautils.feature.Feature;
 import net.ninjadev.ninjautils.init.client.ClientConfigs;
 
 import java.util.Optional;
